@@ -10,7 +10,7 @@ export const useSound = () => {
         if (!soundEnabled.current) return;
 
         try {
-            const audio = new Audio(`/sounds/${soundType}.mp3`);
+            const audio = new Audio(`/sounds/${soundType}.wav`);
             audio.volume = 0.5;
             audio.play().catch(err => {
                 // Silently fail if sound doesn't exist or can't play

@@ -77,7 +77,7 @@ export const getCongratulationsTitle = (percentage) => {
 export const playSound = (soundType) => {
     // This will be enhanced with actual audio files
     try {
-        const audio = new Audio(`/sounds/${soundType}.mp3`);
+        const audio = new Audio(`/sounds/${soundType}.wav`);
         audio.volume = 0.5;
         audio.play().catch(err => {
              // Sound play error
