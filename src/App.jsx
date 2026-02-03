@@ -186,7 +186,12 @@ function App() {
 
             {/* Main Content */}
             <main className="flex-1 flex items-center justify-center p-4 sm:p-8">
-                <div className="w-full max-w-[700px] min-h-[500px]">
+                <div 
+                    className="w-full min-h-[500px]"
+                    style={{
+                        maxWidth: 'min(900px, 100%)', // Golden ratio container
+                    }}
+                >
                     <AnimatePresence mode="wait">
                         {currentScreen === SCREENS.WELCOME && (
                             <WelcomeScreen key="welcome" onStart={startGame} />

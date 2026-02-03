@@ -49,6 +49,33 @@
         /* Exact Bajaj Blue */
         --bajaj-orange: #FF6600;
         /* Exact Bajaj Orange */
+
+        /* Golden Ratio Variables */
+        --phi: 1.618;
+        --phi-inverse: 0.618;
+        
+        /* Fibonacci Spacing Scale (based on golden ratio) */
+        --space-xs: 8px;
+        --space-sm: 13px;
+        --space-md: 21px;
+        --space-lg: 34px;
+        --space-xl: 55px;
+        --space-2xl: 89px;
+
+        /* Wooden Game UI Colors */
+        --wood-dark: #5c4033;
+        --wood-md: #8b6f47;
+        --wood-light: #a68a64;
+        --wood-border: #4a3526;
+        --wood-highlight: #c9a97a;
+        
+        /* Game UI Colors */
+        --game-green: #7ed321;
+        --game-green-dark: #5fb304;
+        --game-cyan: #4ecdc4;
+        --game-cyan-dark: #2fb3aa;
+        --game-red: #e74c3c;
+        --game-yellow: #f1c40f;
     }
 
     .dark {
@@ -143,4 +170,100 @@
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 300ms, transform 300ms;
+}
+
+/* Gaming Animations */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px) rotate(-1deg); }
+    75% { transform: translateX(4px) rotate(1deg); }
+}
+
+@keyframes bounce-in {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(126, 211, 33, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(126, 211, 33, 0.8); }
+}
+
+@keyframes slide-fill {
+    from { width: 0%; }
+    to { width: var(--target-width); }
+}
+
+@keyframes particle-burst {
+    0% { 
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% { 
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes wood-shine {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+/* Wooden Texture Utilities */
+.wood-texture {
+    background: linear-gradient(135deg, 
+        var(--wood-dark) 0%, 
+        var(--wood-md) 25%, 
+        var(--wood-light) 50%, 
+        var(--wood-md) 75%, 
+        var(--wood-dark) 100%
+    );
+    position: relative;
+}
+
+.wood-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 0, 0, 0.03) 3px,
+        rgba(0, 0, 0, 0.03) 6px
+    );
+    pointer-events: none;
+}
+
+.wood-border {
+    border: 4px solid var(--wood-border);
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 -2px 4px rgba(255, 255, 255, 0.1),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.wood-inset {
+    background: linear-gradient(180deg, 
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Gaming Effect Utilities */
+.game-shake {
+    animation: shake 0.3s ease-in-out;
+}
+
+.game-bounce {
+    animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.game-glow {
+    animation: pulse-glow 1.5s ease-in-out infinite;
 }
