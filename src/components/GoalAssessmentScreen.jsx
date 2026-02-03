@@ -83,7 +83,7 @@ const GoalAssessmentScreen = ({
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.2 }}
                     >
-                        {currentQuestion.text}
+                        {currentQuestion.text.replace(/this (life )?goal/gi, `"${currentGoal.name}"`)}
                     </motion.h2>
 
                     {/* Subtext (like "ARE YOU READY?") */}
