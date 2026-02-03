@@ -14,10 +14,9 @@ export const useSound = () => {
             audio.volume = 0.5;
             audio.play().catch(err => {
                 // Silently fail if sound doesn't exist or can't play
-                console.log('Sound playback skipped:', soundType);
             });
         } catch (error) {
-            console.log('Sound not available:', soundType);
+            // Sound not available
         }
     }, []);
 

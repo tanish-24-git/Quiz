@@ -72,7 +72,6 @@ const BookingScreen = ({ onSubmit, onBack, selectedGoals, score }) => {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 1500));
 
-        console.log("Lead submitted:", leadData);
         setIsSuccess(true);
         
         setTimeout(() => {

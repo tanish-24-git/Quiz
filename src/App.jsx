@@ -116,13 +116,6 @@ function App() {
     const handleLeadFormSubmit = (lmsPayload) => {
         // Add game-specific data to the lead
         ; // Lead generation  point
-        console.log('=== LEAD GENERATED ===' );
-        console.log('Lead Type: Life Goals Preparedness – Gamified Lead');
-        console.log('Preparedness Score:', Math.round((score / 9) * 100) + '%');
-        console.log('Selected Goals:', selectedGoals.map(g => g.name));
-        console.log('LMS Payload:', lmsPayload);
-        console.log('All Responses:', responses);
-        console.log('======================');
         
         playSound('success');
         setCurrentScreen(SCREENS.THANK_YOU);
@@ -140,10 +133,6 @@ function App() {
 
     // Handle booking submission
     const handleBookingSubmit = (bookingData) => {
-        console.log('Booking submitted:', bookingData);
-        console.log('Lead tagged as: Life Goals Preparedness – Gamified Lead');
-        console.log('Score:', Math.round((score / 9) * 100) + '%');
-        console.log('Selected Goals:', selectedGoals.map(g => g.name));
         
         playSound('success');
         setCurrentScreen(SCREENS.THANK_YOU);

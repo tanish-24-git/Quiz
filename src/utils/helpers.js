@@ -79,8 +79,10 @@ export const playSound = (soundType) => {
     try {
         const audio = new Audio(`/sounds/${soundType}.mp3`);
         audio.volume = 0.5;
-        audio.play().catch(err => console.log('Sound play error:', err));
+        audio.play().catch(err => {
+             // Sound play error
+        });
     } catch (error) {
-        console.log('Sound not available:', soundType);
+        // Sound not available
     }
 };
