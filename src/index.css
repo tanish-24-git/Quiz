@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
     :root {
+        /* ... existing vars ... */
         /* Bajaj Life Insurance Brand Colors - Exact Match */
         --background: 0 0% 98%;
         /* Light gray/white background */
@@ -76,6 +79,13 @@
         --game-cyan-dark: #2fb3aa;
         --game-red: #e74c3c;
         --game-yellow: #f1c40f;
+        
+        /* Pixel Art Colors */
+        --pixel-blue: #0066B2;
+        --pixel-blue-dark: #004d88;
+        --pixel-blue-light: #4dabf7;
+        --pixel-white: #ffffff;
+        --pixel-gold: #fbbf24;
     }
 
     .dark {
@@ -121,6 +131,55 @@
     }
 }
 
+/* Pixel Art Utilities */
+@layer components {
+    .font-pixel {
+        font-family: 'Press Start 2P', cursive;
+    }
+
+    .pixel-borders {
+        box-shadow: 
+            -4px 0 0 0 var(--charcoal),
+            4px 0 0 0 var(--charcoal),
+            0 -4px 0 0 var(--charcoal),
+            0 4px 0 0 var(--charcoal);
+        margin: 4px;
+    }
+
+    .pixel-borders-sm {
+        box-shadow: 
+            -2px 0 0 0 var(--charcoal),
+            2px 0 0 0 var(--charcoal),
+            0 -2px 0 0 var(--charcoal),
+            0 2px 0 0 var(--charcoal);
+        margin: 2px;
+    }
+
+    .pixel-grid-bg {
+        background-color: #2D3748;
+        background-image: 
+            linear-gradient(#1a202c 1px, transparent 1px),
+            linear-gradient(90deg, #1a202c 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+    
+    .pixel-grid-bg-light {
+        background-color: #0284c7; /* Sky 600 - Darker Blue for better contrast */
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 32px 32px;
+    }
+
+    .pixel-grid-bg-blue {
+        background-color: var(--pixel-blue);
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+    }
+}
+
 /* Bajaj Brand Button Styles - Sharp Edges */
 @layer components {
     .btn-wellness {
@@ -148,6 +207,7 @@
         @apply shadow-md hover:shadow-lg hover:brightness-95;
     }
 }
+
 
 /* Custom transitions */
 .page-transition-enter {

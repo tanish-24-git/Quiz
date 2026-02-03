@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card";
+import { CardContent } from "./ui/card";
 import { lifeGoals } from '../data/lifeGoals';
 import { 
     GraduationCap, Heart, Sunset, Home, Shield, 
     Rocket, Plane, TrendingUp, HeartPulse, Check 
 } from "lucide-react";
+import PixelButton from './PixelButton';
+import { useSound } from '../hooks/useSound';
 
 const iconMap = {
     GraduationCap,
@@ -22,8 +23,13 @@ const iconMap = {
 
 const GoalSelectionScreen = ({ onProceed }) => {
     const [selectedGoals, setSelectedGoals] = useState([]);
+    const { playSound } = useSound();
 
     const toggleGoal = (goalId) => {
+        if (!selectedGoals.includes(goalId)) {
+            playSound('correct'); // Sound for selection
+        }
+        
         setSelectedGoals(prev => {
             if (prev.includes(goalId)) {
                 return prev.filter(id => id !== goalId);
@@ -36,43 +42,50 @@ const GoalSelectionScreen = ({ onProceed }) => {
     };
 
     const handleProceed = () => {
+        playSound('start');
         const goals = lifeGoals.filter(g => selectedGoals.includes(g.id));
         onProceed(goals);
     };
 
     return (
         <motion.div
-            className="w-full max-w-2xl mx-auto"
+            className="w-full max-w-2xl mx-auto font-pixel"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
         >
-            <Card className="shadow-xl border-t-4 border-t-brand-blue">
-                <CardHeader className="text-center pb-4">
-                    <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
-                        Select Your Top 3 Life Goals
-                    </CardTitle>
-                    <CardDescription className="text-brand-blue font-medium">
-                        Choose the goals most important to you
-                    </CardDescription>
-                    <div className="flex justify-center gap-2 mt-2">
-                        {[1, 2, 3].map((num) => (
-                            <div 
-                                key={num}
-                                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
-                                    selectedGoals.length >= num 
-                                        ? 'bg-brand-orange text-white' 
-                                        : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
-                                }`}
-                            >
-                                {num}
-                            </div>
-                        ))}
+            {/* Pixel Card Container */}
+            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden">
+                {/* Retro Grid Background */}
+                <div className="absolute inset-0 pixel-grid-bg-light opacity-50 pointer-events-none" />
+
+                <div className="relative z-10 p-6 sm:p-8">
+                    {/* Header */}
+                    <div className="text-center mb-8">
+                        <h2 className="text-xl sm:text-2xl text-white mb-4 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)] leading-relaxed">
+                            SELECT 3 GOALS
+                        </h2>
+                        
+                        {/* Selected Counter */}
+                        <div className="flex justify-center gap-3 mt-4">
+                            {[1, 2, 3].map((num) => (
+                                <div 
+                                    key={num}
+                                    className={`w-10 h-10 border-4 flex items-center justify-center text-sm transition-all duration-300 ${
+                                        selectedGoals.length >= num 
+                                            ? 'bg-yellow-400 border-yellow-600 text-black shadow-[4px_4px_0_rgba(0,0,0,0.3)]' 
+                                            : 'bg-slate-800 border-slate-600 text-slate-500'
+                                    }`}
+                                >
+                                    {num}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </CardHeader>
-                <CardContent>
-                    <div className="grid grid-cols-3 gap-3 mb-6">
+
+                    {/* Goals Grid */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
                         {lifeGoals.map((goal, index) => {
                             const IconComponent = iconMap[goal.icon];
                             const isSelected = selectedGoals.includes(goal.id);
@@ -86,30 +99,28 @@ const GoalSelectionScreen = ({ onProceed }) => {
                                     transition={{ delay: index * 0.05 }}
                                     onClick={() => !isDisabled && toggleGoal(goal.id)}
                                     disabled={isDisabled}
-                                    className={`relative p-4 rounded-xl border-2 transition-all duration-200 flex flex-col items-center gap-2 text-center ${
+                                    className={`relative p-3 h-32 flex flex-col items-center justify-center gap-3 transition-all duration-200 pixel-borders-sm ${
                                         isSelected 
-                                            ? 'border-brand-orange bg-orange-50 dark:bg-orange-900/20 shadow-lg scale-105' 
+                                            ? 'bg-gradient-to-br from-green-400 to-green-600 border-green-700 translate-y-1' 
                                             : isDisabled 
-                                                ? 'border-gray-200 dark:border-gray-700 opacity-50 cursor-not-allowed' 
-                                                : 'border-gray-200 dark:border-gray-700 hover:border-brand-blue hover:bg-blue-50 dark:hover:bg-blue-900/20'
+                                                ? 'bg-slate-800 border-slate-700 opacity-50 cursor-not-allowed' 
+                                                : 'bg-slate-700 border-slate-900 hover:bg-slate-600 hover:-translate-y-1'
                                     }`}
                                 >
                                     {isSelected && (
-                                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-brand-orange rounded-full flex items-center justify-center">
-                                            <Check className="w-4 h-4 text-white" />
+                                        <div className="absolute top-1 right-1">
+                                            <Check className="w-5 h-5 text-white drop-shadow-md" strokeWidth={3} />
                                         </div>
                                     )}
-                                    <div className={`p-3 rounded-full ${
-                                        isSelected 
-                                            ? 'bg-brand-orange text-white' 
-                                            : 'bg-gray-100 dark:bg-gray-800 text-brand-blue'
+                                    
+                                    <div className={`p-2 rounded ${
+                                        isSelected ? 'bg-white/20 text-white' : 'bg-slate-900/50 text-blue-300'
                                     }`}>
                                         {IconComponent && <IconComponent className="w-6 h-6" />}
                                     </div>
-                                    <span className={`text-xs font-medium leading-tight ${
-                                        isSelected 
-                                            ? 'text-brand-orange' 
-                                            : 'text-gray-700 dark:text-gray-300'
+                                    
+                                    <span className={`text-[10px] sm:text-xs leading-tight uppercase transition-colors ${
+                                        isSelected ? 'text-white font-bold drop-shadow-sm' : 'text-slate-400'
                                     }`}>
                                         {goal.name}
                                     </span>
@@ -118,20 +129,19 @@ const GoalSelectionScreen = ({ onProceed }) => {
                         })}
                     </div>
                     
-                    <Button
-                        variant="cta"
-                        size="xl"
-                        className="w-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    <PixelButton
                         onClick={handleProceed}
+                        variant={selectedGoals.length === 3 ? "yes" : "neutral"}
+                        className={`w-full py-4 text-sm ${selectedGoals.length !== 3 ? 'opacity-50 cursor-not-allowed' : ''}`}
                         disabled={selectedGoals.length !== 3}
                     >
                         {selectedGoals.length === 3 
-                            ? "Proceed to Assessment 🎯" 
-                            : `Select ${3 - selectedGoals.length} more goal${3 - selectedGoals.length > 1 ? 's' : ''}`
+                            ? "PROCEED TO QUEST ►" 
+                            : `SELECT ${3 - selectedGoals.length} MORE`
                         }
-                    </Button>
-                </CardContent>
-            </Card>
+                    </PixelButton>
+                </div>
+            </div>
         </motion.div>
     );
 };

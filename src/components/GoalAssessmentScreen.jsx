@@ -1,27 +1,10 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { assessmentQuestions } from '../data/lifeGoals';
-import WoodenProgressBar from './WoodenProgressBar';
-import WoodenButton from './WoodenButton';
+import PixelProgressBar from './PixelProgressBar';
+import PixelButton from './PixelButton';
 import ParticleEffect from './ParticleEffect';
-import { 
-    GraduationCap, Heart, Sunset, Home, Shield, 
-    Rocket, Plane, TrendingUp, HeartPulse, 
-    ThumbsUp, ThumbsDown 
-} from "lucide-react";
-
-const iconMap = {
-    GraduationCap,
-    Heart,
-    Sunset,
-    Home,
-    Shield,
-    Rocket,
-    Plane,
-    TrendingUp,
-    HeartPulse
-};
+import { Heart } from "lucide-react";
 
 const GoalAssessmentScreen = ({ 
     currentGoal, 
@@ -31,7 +14,6 @@ const GoalAssessmentScreen = ({
     totalGoals = 3 
 }) => {
     const [particles, setParticles] = useState([]);
-    const IconComponent = iconMap[currentGoal.icon];
     const currentQuestion = assessmentQuestions[currentQuestionIndex];
     const overallProgress = (currentGoalIndex * 3 + currentQuestionIndex + 1) / 9;
 
@@ -42,7 +24,7 @@ const GoalAssessmentScreen = ({
         const y = rect.top + rect.height / 2;
         
         const particleId = Date.now();
-        const color = answer ? 'var(--game-green)' : 'var(--game-red)';
+        const color = answer ? '#4ade80' : '#f87171'; // Green/Red consistent with pixel theme
         
         setParticles(prev => [...prev, { id: particleId, x, y, color }]);
         
@@ -60,125 +42,88 @@ const GoalAssessmentScreen = ({
     return (
         <motion.div
             key={`${currentGoal.id}-${currentQuestionIndex}`}
-            className="w-full mx-auto px-4"
+            className="w-full mx-auto px-4 font-pixel"
             style={{
                 maxWidth: 'min(700px, 100%)',
             }}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4 }}
         >
-            <Card className="shadow-2xl border-0 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-slate-800">
-                <CardHeader className="text-center pb-4" style={{ paddingTop: 'var(--space-lg)' }}>
-                    {/* Progress Indicator with Wooden Bar */}
-                    <div style={{ marginBottom: 'var(--space-lg)' }}>
-                        <div className="flex justify-between text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
-                            <span>Goal {currentGoalIndex + 1} of {totalGoals}</span>
-                            <span>Question {currentQuestionIndex + 1} of 3</span>
-                        </div>
-                        <WoodenProgressBar progress={overallProgress} />
+            {/* Pixel Card Container */}
+            <div className="relative pixel-borders bg-sky-500 border-4 border-sky-700 overflow-hidden min-h-[500px] flex flex-col">
+                
+                {/* Retro Grid Background */}
+                <div className="absolute inset-0 pixel-grid-bg-light opacity-100 pointer-events-none" />
+                
+                {/* Scanline Effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 bg-[length:100%_4px] pointer-events-none z-10 opacity-20" />
+
+                {/* Header Section (HUD) */}
+                <div className="relative z-20 p-6 flex justify-between items-start">
+                    <div className="text-yellow-400 text-xs sm:text-sm tracking-widest animate-pulse">
+                        <div className="mb-2">LEVEL {currentGoalIndex + 1}-{currentQuestionIndex + 1}</div>
+                        <div className="text-white drop-shadow-md">SCORE: {Math.floor(overallProgress * 10000)}</div>
                     </div>
+                </div>
 
-                    {/* Current Goal Display */}
-                    <motion.div 
-                        className="flex flex-col items-center gap-4"
-                        style={{ paddingTop: 'var(--space-md)' }}
-                        initial={{ scale: 0.9, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-                    >
-                        <motion.div 
-                            className="p-5 bg-gradient-to-br from-brand-blue to-blue-600 rounded-full shadow-xl relative"
-                            whileHover={{ scale: 1.1, rotate: 5 }}
-                            transition={{ type: 'spring', stiffness: 300 }}
-                        >
-                            {IconComponent && <IconComponent className="w-12 h-12 text-white" />}
-                            <div className="absolute inset-0 rounded-full bg-white opacity-20 animate-ping" 
-                                style={{ animationDuration: '2s' }} 
-                            />
-                        </motion.div>
-                        <CardTitle className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
-                            {currentGoal.name}
-                        </CardTitle>
-                    </motion.div>
-                </CardHeader>
+                {/* Progress Bar (Blue Theme) */}
+                <div className="relative z-20 px-6 mb-8">
+                    <PixelProgressBar progress={overallProgress} />
+                </div>
 
-                <CardContent style={{ padding: 'var(--space-lg)' }}>
-                    {/* Question */}
-                    <motion.div 
-                        className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg relative overflow-hidden"
-                        style={{ 
-                            padding: 'var(--space-lg)',
-                            marginBottom: 'var(--space-xl)',
-                        }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
+                {/* Main Content Area */}
+                <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-6 text-center">
+                    
+                    {/* Question Text (Large Pixel Font) */}
+                    <motion.h2 
+                        className="text-2xl sm:text-3xl md:text-4xl text-white mb-8 leading-relaxed drop-shadow-[4px_4px_0_rgba(0,0,0,1)]"
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.2 }}
                     >
-                        {/* Decorative corner */}
-                        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-brand-orange/20 to-transparent rounded-bl-full" />
-                        
-                        <p className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100 text-center leading-relaxed relative z-10">
-                            {currentQuestion.text}
-                        </p>
-                    </motion.div>
+                        {currentQuestion.text}
+                    </motion.h2>
 
-                    {/* Yes/No Wooden Buttons */}
-                    <div 
-                        className="grid grid-cols-2 gap-4 sm:gap-6"
-                        style={{ marginBottom: 'var(--space-lg)' }}
+                    {/* Subtext (like "ARE YOU READY?") */}
+                    <motion.p
+                        className="text-blue-300 text-xs sm:text-sm mb-12 tracking-widest uppercase"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
                     >
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.4 }}
+                        SELECT OPTION
+                    </motion.p>
+
+                    {/* Pixel Buttons */}
+                    <div className="flex justify-center gap-8 w-full max-w-md">
+                        <PixelButton 
+                            onClick={(e) => handleAnswer(true, e)} 
+                            variant="yes"
                         >
-                            <WoodenButton
-                                onClick={(e) => handleAnswer(true, e)}
-                                variant="yes"
-                                icon={ThumbsUp}
-                                className="w-full"
-                            >
-                                Yes
-                            </WoodenButton>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.4 }}
+                            YES
+                        </PixelButton>
+                        <PixelButton 
+                            onClick={(e) => handleAnswer(false, e)} 
+                            variant="no"
                         >
-                            <WoodenButton
-                                onClick={(e) => handleAnswer(false, e)}
-                                variant="no"
-                                icon={ThumbsDown}
-                                className="w-full"
-                            >
-                                No
-                            </WoodenButton>
-                        </motion.div>
+                            NO
+                        </PixelButton>
                     </div>
+                </div>
 
-                    {/* Goal Dots Indicator */}
-                    <div className="flex justify-center gap-3 mt-6">
-                        {[0, 1, 2].map((idx) => (
-                            <motion.div 
-                                key={idx}
-                                className={`rounded-full transition-all duration-300 ${
-                                    idx < currentGoalIndex 
-                                        ? 'bg-green-500 w-3 h-3' 
-                                        : idx === currentGoalIndex 
-                                            ? 'bg-brand-orange w-8 h-3' 
-                                            : 'bg-gray-300 dark:bg-gray-600 w-3 h-3'
-                                }`}
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ delay: 0.5 + idx * 0.1, type: 'spring' }}
-                            />
-                        ))}
-                    </div>
-                </CardContent>
-            </Card>
+                {/* Footer Lives/Hearts */}
+                <div className="relative z-20 p-4 flex justify-end gap-2 text-red-500">
+                    {[0, 1, 2].map(idx => (
+                        <Heart 
+                            key={idx} 
+                            className={`w-6 h-6 ${idx < 3 - currentQuestionIndex ? 'fill-current' : 'opacity-30'}`} 
+                            style={{ filter: `drop-shadow(2px 2px 0 rgba(0,0,0,0.5))` }}
+                        />
+                    ))}
+                </div>
+            </div>
 
             {/* Particle Effects */}
             {particles.map(particle => (
