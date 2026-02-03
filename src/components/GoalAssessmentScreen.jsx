@@ -64,41 +64,37 @@ const GoalAssessmentScreen = ({
     return (
         <motion.div
             key={`${currentGoal.id}-${currentQuestionIndex}`}
-            className="w-full mx-auto px-4 font-pixel"
-            style={{
-                maxWidth: 'min(700px, 100%)',
-            }}
+            className="w-full mx-auto px-2 sm:px-4 font-pixel h-[100dvh] flex flex-col items-center justify-center overflow-hidden"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.4 }}
         >
-            {/* Main Pixel Container - Light Blue Theme */}
-            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden min-h-[500px] flex flex-col shadow-2xl">
+            {/* Main Pixel Container - Light Blue Theme with Golden Ratio proportions */}
+            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full max-w-[700px] aspect-[1/1.618] sm:aspect-auto sm:min-h-[600px] flex flex-col shadow-2xl transition-all duration-300">
                 
                 {/* Retro Grid Background - Subtle White */}
-                <div className="absolute inset-0 pixel-grid-bg-light opacity-40 pointer-events-none" />
+                <div className="absolute inset-0 pixel-grid-bg-light opacity-30 pointer-events-none" />
                 
                 {/* Scanline Effect - Subtle */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5 bg-[length:100%_4px] pointer-events-none z-10 opacity-20" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5 bg-[length:100%_4px] pointer-events-none z-10 opacity-10" />
 
-                {/* Header Section (HUD) */}
-                <div className="relative z-20 p-6 flex justify-between items-start">
-                    <div className="text-white text-xs sm:text-sm tracking-widest drop-shadow-md">
-                        <div className="mb-2 opacity-80 font-bold">LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}</div>
+                {/* --- HEADER SECTION (~15%) --- */}
+                <div className="relative z-20 p-4 sm:p-6 flex justify-between items-start">
+                    <div className="text-white text-[10px] sm:text-xs tracking-widest drop-shadow-md">
+                        <div className="mb-1 opacity-80 font-bold">LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}</div>
                         <div className="text-white font-bold">XP: {Math.floor(overallProgress * 10000)}</div>
                     </div>
 
-                    {/* Timer Gauge - Orange/White */}
-                    <div className="flex flex-col items-end gap-2">
-                        <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 border-2 border-white/40 pixel-borders-sm">
-                            <Timer className={`w-4 h-4 ${timeLeft <= 2 ? 'text-red-400 animate-bounce' : 'text-brand-orange'}`} />
-                            <span className={`text-sm font-bold ${timeLeft <= 2 ? 'text-red-400' : 'text-white'}`}>
+                    {/* Timer Gauge */}
+                    <div className="flex flex-col items-end gap-1.5">
+                        <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-2 py-0.5 sm:px-3 sm:py-1 border-2 border-white/40 pixel-borders-sm">
+                            <Timer className={`w-3.5 h-3.5 ${timeLeft <= 2 ? 'text-red-400 animate-bounce' : 'text-brand-orange'}`} />
+                            <span className={`text-xs sm:text-sm font-bold ${timeLeft <= 2 ? 'text-red-400' : 'text-white'}`}>
                                 0{timeLeft}s
                             </span>
                         </div>
-                        {/* Time Bar */}
-                        <div className="w-24 h-2 bg-sky-900/30 border-2 border-sky-900/50 overflow-hidden">
+                        <div className="w-16 sm:w-24 h-1.5 sm:h-2 bg-sky-900/30 border-2 border-sky-900/50 overflow-hidden">
                             <motion.div 
                                 className={`h-full ${timeLeft <= 2 ? 'bg-red-500' : 'bg-brand-orange'}`}
                                 initial={{ width: "100%" }}
@@ -109,58 +105,62 @@ const GoalAssessmentScreen = ({
                     </div>
                 </div>
 
-                {/* Progress Bar (White Theme) */}
-                <div className="relative z-20 px-6 mb-8">
+                {/* Progress Bar */}
+                <div className="relative z-20 px-4 sm:px-6 mb-2 sm:mb-4">
                     <PixelProgressBar progress={overallProgress} />
                 </div>
 
-                {/* Main Content Area */}
-                <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-6 text-center">
-                    
-                    {/* Question Text */}
-                    <motion.h2 
-                        className="text-2xl sm:text-3xl lg:text-4xl text-white mb-8 leading-relaxed drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)] uppercase tracking-tight"
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                    >
-                        {currentQuestion.text.replace(/this (life )?goal/gi, `"${currentGoal.name}"`)}
-                    </motion.h2>
+                {/* --- CORE CONTENT AREA (~60%) --- */}
+                <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-4 sm:p-6 text-center">
+                    <div className="space-y-4 sm:space-y-6 max-w-[90%]">
+                        {/* Question Text - Scaled for screens */}
+                        <motion.h2 
+                            className="text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white leading-relaxed drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)] uppercase tracking-tight"
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            {currentQuestion.text.replace(/this (life )?goal/gi, `"${currentGoal.name}"`)}
+                        </motion.h2>
 
-                    <motion.p
-                        className="text-sky-100 text-[10px] sm:text-xs mb-12 tracking-widest uppercase font-bold"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                    >
-                        CHOOSE YOUR PATH!
-                    </motion.p>
+                        <motion.p
+                            className="text-sky-100 text-[8px] sm:text-[10px] tracking-widest uppercase font-bold opacity-80"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                        >
+                            CHOOSE YOUR PATH!
+                        </motion.p>
+                    </div>
+                </div>
 
-                    {/* Pixel Buttons - Orange and White */}
-                    <div className="flex justify-center gap-8 w-full max-w-md">
+                {/* --- ACTIONS SECTION (~25%) --- */}
+                <div className="relative z-20 p-4 sm:p-8 flex flex-col items-center gap-6 sm:gap-8">
+                    {/* Pixel Buttons - Responsive Gap */}
+                    <div className="flex justify-center gap-4 sm:gap-8 w-full max-w-sm">
                         <PixelButton 
                             onClick={(e) => handleAnswer(true, e)} 
-                            className="bg-brand-orange hover:bg-orange-600 text-white shadow-[0_4px_0_#bd5a00]"
+                            className="bg-brand-orange hover:bg-orange-600 text-white shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4"
                         >
                             YES
                         </PixelButton>
                         <PixelButton 
                             onClick={(e) => handleAnswer(false, e)} 
-                            className="bg-white hover:bg-slate-100 !text-sky-900 shadow-[0_4px_0_#cbd5e1]"
+                            className="bg-white hover:bg-slate-100 !text-sky-900 shadow-[0_4px_0_#cbd5e1] text-sm sm:text-lg py-3 sm:py-4"
                         >
                             NO
                         </PixelButton>
                     </div>
-                </div>
 
-                {/* Footer Lives */}
-                <div className="relative z-20 p-4 flex justify-end gap-2 text-white">
-                    {[0, 1, 2].map(idx => (
-                        <Heart 
-                            key={idx} 
-                            className={`w-6 h-6 ${idx < 3 - currentQuestionIndex ? 'fill-white' : 'opacity-30'}`} 
-                        />
-                    ))}
+                    {/* Footer Lives - Compact on Mobile */}
+                    <div className="flex justify-center gap-1.5 sm:gap-2 text-white">
+                        {[0, 1, 2].map(idx => (
+                            <Heart 
+                                key={idx} 
+                                className={`w-5 h-5 sm:w-6 sm:h-6 ${idx < 3 - currentQuestionIndex ? 'fill-white' : 'opacity-30'}`} 
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
 
