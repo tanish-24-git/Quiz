@@ -27,7 +27,7 @@ const GoalSelectionScreen = ({ onProceed }) => {
 
     const toggleGoal = (goalId) => {
         if (!selectedGoals.includes(goalId)) {
-            playSound('correct'); // Sound for selection
+            // Sound for selection removed
         }
         
         setSelectedGoals(prev => {
@@ -42,7 +42,6 @@ const GoalSelectionScreen = ({ onProceed }) => {
     };
 
     const handleProceed = () => {
-        playSound('start');
         const goals = lifeGoals.filter(g => selectedGoals.includes(g.id));
         onProceed(goals);
     };

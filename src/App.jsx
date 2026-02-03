@@ -48,7 +48,6 @@ function App() {
         setCurrentQuestionIndex(0);
         setResponses([]);
         setScore(0);
-        playSound('start');
     };
 
     // Handle goal selection complete

@@ -7,7 +7,6 @@ const WelcomeScreen = ({ onStart }) => {
     const { playSound } = useSound();
 
     const handleStart = () => {
-        playSound('start');
         onStart();
     };
 
