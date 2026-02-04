@@ -8,7 +8,6 @@ import './index.css';
 const WelcomeScreen = lazy(() => import('./components/WelcomeScreen'));
 const GoalSelectionScreen = lazy(() => import('./components/GoalSelectionScreen'));
 const GoalAssessmentScreen = lazy(() => import('./components/GoalAssessmentScreen'));
-const QuestInstructions = lazy(() => import('./components/QuestInstructions'));
 const ScoreResultsScreen = lazy(() => import('./components/ScoreResultsScreen'));
 const BookingScreen = lazy(() => import('./components/BookingScreen'));
 const LeadCaptureForm = lazy(() => import('./components/LeadCaptureForm'));
@@ -28,7 +27,7 @@ function App() {
         setShowSuccessToast,
         startGame,
         handleGoalsSelected,
-        startQuest,
+
         advanceGame,
         handleCallNow,
         handleBookSlot,
@@ -46,8 +45,6 @@ function App() {
                 return <WelcomeScreen key="welcome" onStart={startGame} />;
             case SCREENS.GOAL_SELECTION:
                 return <GoalSelectionScreen key="goal-selection" onProceed={handleGoalsSelected} />;
-            case SCREENS.INSTRUCTIONS:
-                return <QuestInstructions key="instructions" onStart={startQuest} />;
             case SCREENS.ASSESSMENT:
                 return selectedGoals.length > 0 && (
                     <GoalAssessmentScreen
