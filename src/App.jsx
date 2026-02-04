@@ -54,6 +54,7 @@ function App() {
                         currentGoal={selectedGoals[currentGoalIndex]}
                         currentGoalIndex={currentGoalIndex}
                         currentQuestionIndex={currentQuestionIndex}
+                        score={score}
                         onAnswer={(ans) => advanceGame(ans, selectedGoals[currentGoalIndex], selectedGoals.length)}
                     />
                 );

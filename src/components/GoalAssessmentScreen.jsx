@@ -4,14 +4,14 @@ import { assessmentQuestions } from '../data/lifeGoals';
 import PixelProgressBar from './PixelProgressBar';
 import PixelButton from './PixelButton';
 import ParticleEffect from './ParticleEffect';
-import { Heart, Timer } from "lucide-react";
+import { Heart, Timer, Star } from "lucide-react";
 
 const GoalAssessmentScreen = ({
     currentGoal,
     currentGoalIndex,
     currentQuestionIndex,
     onAnswer,
-    totalGoals = 3
+    score
 }) => {
     const [particles, setParticles] = useState([]);
     const [timeLeft, setTimeLeft] = useState(5);
@@ -20,23 +20,34 @@ const GoalAssessmentScreen = ({
     const currentQuestion = assessmentQuestions[currentQuestionIndex];
     const overallProgress = (currentGoalIndex * 3 + currentQuestionIndex + 1) / 9;
 
+    // Calculate stars from score (111 points per correct answer)
+    const starCount = Math.floor(score / 111);
+
     // Timer Logic
     useEffect(() => {
         setTimeLeft(30);
-
-        timerRef.current = setInterval(() => {
+        const timerCallback = () => {
             setTimeLeft(prev => {
                 if (prev <= 1) {
-                    clearInterval(timerRef.current);
-                    onAnswer(false);
                     return 0;
                 }
                 return prev - 1;
             });
-        }, 1000);
+        };
+
+        timerRef.current = setInterval(timerCallback, 1000);
 
         return () => clearInterval(timerRef.current);
     }, [currentGoalIndex, currentQuestionIndex]);
+
+    // Handle Time Out separately to avoid side-effects in render/state-update phase
+    useEffect(() => {
+        if (timeLeft === 0) {
+            clearInterval(timerRef.current);
+            // Ensure we only call this once per question
+            onAnswer(false);
+        }
+    }, [timeLeft, onAnswer]);
 
     const handleAnswer = (answer, event) => {
         clearInterval(timerRef.current);
@@ -83,7 +94,16 @@ const GoalAssessmentScreen = ({
                     <div className="text-white text-[10px] sm:text-xs tracking-widest drop-shadow-md">
                         <div className="mb-1 text-brand-orange font-bold uppercase text-xs sm:text-sm">{currentGoal.name}</div>
                         <div className="mb-1 opacity-80 font-bold">LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}</div>
-                        <div className="text-white font-bold">XP: {Math.floor(overallProgress * 1000)}</div>
+
+                        {/* Star Display */}
+                        <div className="flex items-center gap-2">
+                            <span className="text-white font-bold text-[10px] sm:text-xs">XP:</span>
+                            <div className="flex gap-1">
+                                {Array.from({ length: starCount }).map((_, i) => (
+                                    <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 text-white fill-white" />
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
                     {/* Timer Gauge */}
