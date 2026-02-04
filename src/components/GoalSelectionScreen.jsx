@@ -48,14 +48,14 @@ const GoalSelectionScreen = ({ onProceed }) => {
 
     return (
         <motion.div
-            className="w-full max-w-4xl mx-auto font-pixel px-4"
+            className="w-full max-w-5xl mx-auto font-pixel px-4 h-[100dvh] flex items-center justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
         >
-            {/* Pixel Card Container - Golden Ratio on Desktop */}
-            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full sm:aspect-golden flex flex-col shadow-2xl">
+            {/* Pixel Card Container - Responsive sizing */}
+            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full min-h-[600px] sm:min-h-[700px] flex flex-col shadow-2xl">
                 {/* Retro Grid Background */}
                 <div className="absolute inset-0 pixel-grid-bg-light opacity-50 pointer-events-none" />
 
@@ -72,8 +72,8 @@ const GoalSelectionScreen = ({ onProceed }) => {
                                 <div
                                     key={num}
                                     className={`w-8 h-8 sm:w-10 sm:h-10 border-2 sm:border-4 flex items-center justify-center text-xs sm:text-sm transition-all duration-300 ${selectedGoals.length >= num
-                                            ? 'bg-yellow-400 border-yellow-600 text-black shadow-[2px_2px_0_rgba(0,0,0,0.3)]'
-                                            : 'bg-slate-800 border-slate-600 text-slate-500'
+                                        ? 'bg-yellow-400 border-yellow-600 text-black shadow-[2px_2px_0_rgba(0,0,0,0.3)]'
+                                        : 'bg-slate-800 border-slate-600 text-slate-500'
                                         }`}
                                 >
                                     {num}
@@ -98,10 +98,10 @@ const GoalSelectionScreen = ({ onProceed }) => {
                                     onClick={() => !isDisabled && toggleGoal(goal.id)}
                                     disabled={isDisabled}
                                     className={`relative p-2 sm:p-3 h-full min-h-[5rem] sm:min-h-[6rem] flex flex-col items-center justify-center gap-1 sm:gap-2 transition-all duration-200 pixel-borders-sm ${isSelected
-                                            ? 'bg-gradient-to-br from-green-400 to-green-600 border-green-700 translate-y-1'
-                                            : isDisabled
-                                                ? 'bg-slate-800 border-slate-700 opacity-50 cursor-not-allowed'
-                                                : 'bg-slate-700 border-slate-900 hover:bg-slate-600 hover:-translate-y-1'
+                                        ? 'bg-gradient-to-br from-green-400 to-green-600 border-green-700 translate-y-1'
+                                        : isDisabled
+                                            ? 'bg-slate-800 border-slate-700 opacity-50 cursor-not-allowed'
+                                            : 'bg-slate-700 border-slate-900 hover:bg-slate-600 hover:-translate-y-1'
                                         }`}
                                 >
                                     {isSelected && (

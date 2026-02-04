@@ -39,8 +39,8 @@ const WelcomeScreen = ({ onStart }) => {
                 )}
             </AnimatePresence>
 
-            {/* Professional White Card with Pixel Borders - Golden Ratio layout on desktop */}
-            <div className="relative pixel-borders bg-white border-4 border-slate-200 overflow-hidden shadow-2xl p-phi-1 sm:p-phi-2 flex flex-col w-full sm:aspect-golden sm:h-auto min-h-[500px] sm:min-h-0 justify-between">
+            {/* Professional White Card with Pixel Borders */}
+            <div className="relative pixel-borders bg-white border-4 border-slate-200 overflow-hidden shadow-2xl p-phi-1 sm:p-phi-2 py-8 sm:py-12 flex flex-col w-full min-h-[500px] sm:min-h-[600px] justify-between">
                 {/* Subtle Grid Background */}
                 <div className="absolute inset-0 pixel-grid-bg-light opacity-10 pointer-events-none" />
 

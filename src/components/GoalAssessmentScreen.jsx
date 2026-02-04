@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import { assessmentQuestions } from '../data/lifeGoals';
 import PixelProgressBar from './PixelProgressBar';
@@ -71,7 +71,7 @@ const GoalAssessmentScreen = ({
         const color = answer ? '#ffffff' : '#ff7900';
 
         setParticles(prev => [...prev, { id: particleId, x, y, color }]);
-        
+
         // Trigger Flash
         setFlash(answer ? 'correct' : 'incorrect');
         setTimeout(() => setFlash(null), 400);

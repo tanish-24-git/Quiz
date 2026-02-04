@@ -7,6 +7,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { isValidEmail, isValidPhone } from '../utils/helpers';
 import { Check, ChevronsUpDown } from "lucide-react";
+import PixelButton from './PixelButton';
 
 // API function to submit to Bajaj LMS
 const submitToLMS = async (data) => {
