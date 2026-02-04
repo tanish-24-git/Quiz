@@ -4,7 +4,6 @@ import { assessmentQuestions } from '../data/lifeGoals';
 import PixelProgressBar from './PixelProgressBar';
 import PixelButton from './PixelButton';
 import ParticleEffect from './ParticleEffect';
-import { Heart, Timer, Star } from "lucide-react";
 
 const GoalAssessmentScreen = ({
     currentGoal,
@@ -24,9 +23,6 @@ const GoalAssessmentScreen = ({
     if (!currentQuestion || !currentGoal) return null;
 
     const overallProgress = (currentGoalIndex * 3 + currentQuestionIndex + 1) / 9;
-
-    // Calculate stars from score (111 points per correct answer)
-    const starCount = Math.floor(score / 111);
 
     // Timer Logic
     useEffect(() => {
@@ -48,7 +44,7 @@ const GoalAssessmentScreen = ({
         return () => clearInterval(timerRef.current);
     }, [currentGoalIndex, currentQuestionIndex]);
 
-    // Handle Time Out separately to avoid side-effects in render/state-update phase
+    // Handle Time Out
     useEffect(() => {
         if (timeLeft === 0 && !isAnswering) {
             clearInterval(timerRef.current);
@@ -116,37 +112,44 @@ const GoalAssessmentScreen = ({
                 </AnimatePresence>
 
                 {/* --- HEADER SECTION (~15%) --- */}
-                <div className="relative z-20 p-4 sm:p-6 flex justify-between items-start">
-                    <div className="text-white text-[10px] sm:text-xs tracking-widest drop-shadow-md">
-                        <div className="mb-1 text-brand-orange font-bold uppercase text-xs sm:text-sm">{currentGoal.name}</div>
-                        <div className="mb-1 opacity-80 font-bold">LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}</div>
-
-                        {/* Star Display */}
-                        <div className="flex items-center gap-2 mb-1">
-                            <span className="text-white font-bold text-[10px] sm:text-xs">XP:</span>
-                            <div className="flex gap-1">
-                                {Array.from({ length: starCount }).map((_, i) => (
-                                    <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 text-white fill-white" />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Numeric Score */}
-                        <div className="flex items-center gap-2 bg-black/20 px-2 py-1 rounded border border-white/10 w-fit">
-                            <span className="text-brand-orange text-[10px] font-bold">SCORE</span>
-                            <span className="text-white text-[10px] font-pixel tracking-widest">{score.toString().padStart(5, '0')}</span>
-                        </div>
+                <div className="relative z-20 p-4 sm:p-6 grid grid-cols-3 items-center">
+                    {/* Left Side - Level */}
+                    <div className="text-white text-left">
+                        <motion.div
+                            className="font-bold text-xs sm:text-sm text-white"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.4, delay: 0.2 }}
+                        >
+                            LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}
+                        </motion.div>
                     </div>
 
-                    {/* Timer Gauge */}
-                    <div className="flex flex-col items-end gap-1.5">
-                        <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-2 py-0.5 sm:px-3 sm:py-1 border-2 border-white/40 pixel-borders-sm">
-                            <Timer className={`w-3.5 h-3.5 ${timeLeft <= 5 ? 'text-red-400 animate-bounce' : 'text-brand-orange'}`} />
-                            <span className={`text-xs sm:text-sm font-bold ${timeLeft <= 5 ? 'text-red-400' : 'text-white'}`}>
-                                {timeLeft < 10 ? `0${timeLeft}` : timeLeft}s
+                    {/* Center - Goal Name */}
+                    <div className="flex justify-center w-full">
+                        <motion.div
+                            className="text-brand-orange font-bold uppercase text-sm sm:text-xl tracking-widest text-center leading-tight"
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{
+                                opacity: 1,
+                                y: 0,
+                            }}
+                            transition={{ duration: 0.4 }}
+                        >
+                            <span
+                                className="relative inline-block px-4 py-2 bg-white"
+                                style={{
+                                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+                                }}
+                            >
+                                {currentGoal.name}
                             </span>
-                        </div>
-                        <div className="w-16 sm:w-24 h-1.5 sm:h-2 bg-sky-900/30 border-2 border-sky-900/50 overflow-hidden">
+                        </motion.div>
+                    </div>
+
+                    {/* Right Side - Timer Bar (no numbers) */}
+                    <div className="flex flex-col items-end gap-1.5">
+                        <div className="w-20 sm:w-32 h-3 sm:h-4 bg-sky-900/30 border-2 border-sky-900/50 overflow-hidden">
                             <motion.div
                                 className={`h-full ${timeLeft <= 5 ? 'bg-red-500' : 'bg-brand-orange'}`}
                                 initial={{ width: "100%" }}
