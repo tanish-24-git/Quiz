@@ -164,66 +164,74 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
 
     return (
         <motion.div
-            className="w-full max-w-lg mx-auto"
+            className="w-full max-w-xl mx-auto px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
         >
-            <Card className="shadow-2xl border-brand-blue/10 dark:border-brand-blue/20">
-                <CardHeader className="text-center pb-2">
-                    <CardTitle className="text-2xl font-bold text-foreground">
-                        Almost there!
-                    </CardTitle>
-                    <CardDescription>
-                        Enter your details to see your results.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-4">
-                    <form className="space-y-4" onSubmit={handleSubmit}>
+            {/* Pixel Card Container - Golden Ratio Style */}
+            <div className="relative pixel-borders bg-white border-4 border-slate-200 overflow-hidden shadow-2xl">
+                {/* Subtle Grid Background */}
+                <div className="absolute inset-0 pixel-grid-bg-light opacity-10 pointer-events-none" />
+
+                <div className="relative z-10 p-phi-1 sm:p-phi-2">
+                    <div className="text-center mb-phi-1">
+                        <h2 className="text-xl sm:text-3xl font-pixel text-sky-900 mb-2 leading-tight uppercase font-bold" style={{ textShadow: '2px 2px 0 rgba(0,0,0,0.05)' }}>
+                            Almost There!
+                        </h2>
+                        <p className="text-slate-500 font-sans text-xs sm:text-sm">
+                            Enter your details to reveal your quest results.
+                        </p>
+                    </div>
+
+                    <form className="space-y-phi-1" onSubmit={handleSubmit}>
                         <div className="space-y-4">
                             <div className="space-y-1">
-                                <Label htmlFor="name">Full Name <span className="text-red-500">*</span></Label>
+                                <Label htmlFor="name" className="text-slate-700 font-bold uppercase text-xs tracking-wider">Full Name <span className="text-red-500">*</span></Label>
                                 <Input
                                     id="name"
-                                    placeholder="As per Govt ID"
+                                    placeholder="Adventurer Name"
                                     value={formData.name}
                                     onChange={(e) => updateField('name', e.target.value)}
-                                    className={errors.name ? 'border-red-500' : ''}
+                                    className={`border-2 rounded-none focus:ring-0 ${errors.name ? 'border-red-500' : 'border-slate-300 focus:border-brand-blue'}`}
                                 />
-                                {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+                                {errors.name && <p className="text-red-500 text-[10px] uppercase font-bold mt-1">{errors.name}</p>}
                             </div>
 
                             <div className="space-y-1">
-                                <Label htmlFor="email">Email ID <span className="text-red-500">*</span></Label>
+                                <Label htmlFor="email" className="text-slate-700 font-bold uppercase text-xs tracking-wider">Email Guild ID <span className="text-red-500">*</span></Label>
                                 <Input
                                     id="email"
                                     type="email"
-                                    placeholder="john@example.com"
+                                    placeholder="hero@example.com"
                                     value={formData.email}
                                     onChange={(e) => updateField('email', e.target.value)}
-                                    className={errors.email ? 'border-red-500' : ''}
+                                    className={`border-2 rounded-none focus:ring-0 ${errors.email ? 'border-red-500' : 'border-slate-300 focus:border-brand-blue'}`}
                                 />
-                                {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+                                {errors.email && <p className="text-red-500 text-[10px] uppercase font-bold mt-1">{errors.email}</p>}
                             </div>
 
-                            <Button type="submit" className="w-full bg-brand-orange hover:bg-orange-600 text-lg text-white" disabled={isLoading}>
-                                {isLoading ? "Submitting..." : "Get Quote"}
-                            </Button>
+                            <PixelButton
+                                type="submit"
+                                disabled={isLoading}
+                                className="w-full py-4 bg-brand-orange text-white font-bold uppercase tracking-widest hover:bg-orange-600 shadow-[0_4px_0_#cc5500] active:shadow-none active:translate-y-[2px] border-none"
+                            >
+                                {isLoading ? "Submitting..." : "REVEAL RESULTS ►"}
+                            </PixelButton>
                         </div>
 
                         <div className="text-center">
-                            <Button
+                            <button
                                 type="button"
-                                variant="link"
-                                className="text-muted-foreground text-xs mt-2"
+                                className="text-slate-400 hover:text-slate-600 text-[10px] uppercase tracking-wider font-bold underline decoration-slate-300 underline-offset-4"
                                 onClick={onSkip}
                             >
-                                Skip and restart quiz
-                            </Button>
+                                Skip and restart quest
+                            </button>
                         </div>
                     </form>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
         </motion.div>
     );
 };

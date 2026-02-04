@@ -93,6 +93,16 @@ export default {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
+            aspectRatio: {
+                'golden': '1.618 / 1',
+                'golden-portrait': '1 / 1.618',
+            },
+            spacing: {
+                'phi-1': '1.618rem',   // ~26px
+                'phi-2': '2.618rem',   // ~42px
+                'phi-3': '4.236rem',   // ~68px
+                'phi-4': '6.854rem',   // ~110px
+            }
         },
     },
     plugins: [require("tailwindcss-animate")],

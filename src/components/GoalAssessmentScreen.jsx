@@ -81,7 +81,7 @@ const GoalAssessmentScreen = ({
             transition={{ duration: 0.4 }}
         >
             {/* Main Pixel Container - Light Blue Theme with Golden Ratio proportions */}
-            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full max-w-[700px] aspect-[1/1.618] sm:aspect-auto sm:min-h-[600px] flex flex-col shadow-2xl transition-all duration-300">
+            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full max-w-[700px] aspect-golden-portrait sm:aspect-auto sm:min-h-[600px] flex flex-col shadow-2xl transition-all duration-300">
 
                 {/* Retro Grid Background - Subtle White */}
                 <div className="absolute inset-0 pixel-grid-bg-light opacity-30 pointer-events-none" />
