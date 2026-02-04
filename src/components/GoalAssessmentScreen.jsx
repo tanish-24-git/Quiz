@@ -11,11 +11,13 @@ const GoalAssessmentScreen = ({
     currentGoalIndex,
     currentQuestionIndex,
     onAnswer,
-    score
+    score,
+    lives
 }) => {
     const [particles, setParticles] = useState([]);
     const [timeLeft, setTimeLeft] = useState(30);
     const [isAnswering, setIsAnswering] = useState(false);
+    const [flash, setFlash] = useState(null); // 'correct' or 'incorrect'
     const timerRef = useRef(null);
 
     const currentQuestion = assessmentQuestions[currentQuestionIndex];
@@ -69,6 +71,10 @@ const GoalAssessmentScreen = ({
         const color = answer ? '#ffffff' : '#ff7900';
 
         setParticles(prev => [...prev, { id: particleId, x, y, color }]);
+        
+        // Trigger Flash
+        setFlash(answer ? 'correct' : 'incorrect');
+        setTimeout(() => setFlash(null), 400);
 
         setTimeout(() => {
             setParticles(prev => prev.filter(p => p.id !== particleId));
@@ -96,6 +102,18 @@ const GoalAssessmentScreen = ({
 
                 {/* Scanline Effect - Subtle */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5 bg-[length:100%_4px] pointer-events-none z-10 opacity-10" />
+
+                {/* Feedback Flash Overlay */}
+                <AnimatePresence>
+                    {flash && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.3 }}
+                            exit={{ opacity: 0 }}
+                            className={`absolute inset-0 z-50 pointer-events-none ${flash === 'correct' ? 'bg-green-400' : 'bg-red-500'}`}
+                        />
+                    )}
+                </AnimatePresence>
 
                 {/* --- HEADER SECTION (~15%) --- */}
                 <div className="relative z-20 p-4 sm:p-6 flex justify-between items-start">
@@ -182,10 +200,10 @@ const GoalAssessmentScreen = ({
 
                     {/* Footer Lives - Compact on Mobile */}
                     <div className="flex justify-center gap-1.5 sm:gap-2 text-white">
-                        {[0, 1, 2].map(idx => (
+                        {[1, 2, 3].map(idx => (
                             <Heart
                                 key={idx}
-                                className={`w-5 h-5 sm:w-6 sm:h-6 ${idx < 3 - currentQuestionIndex ? 'fill-white' : 'opacity-30'}`}
+                                className={`w-5 h-5 sm:w-6 sm:h-6 ${idx <= lives ? 'fill-white' : 'opacity-30'}`}
                             />
                         ))}
                     </div>

@@ -10,7 +10,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 
 // API function to submit to Bajaj LMS
 const submitToLMS = async (data) => {
-    ; //   point 1: Before API call
+    // API Call to Bajaj LMS Proxy
 
     const apiUrl = "https://webpartner.bajajallianz.com/EurekaWSNew/service/pushData";
 
@@ -60,22 +60,16 @@ const submitToLMS = async (data) => {
         const response = await fetch(apiUrl, {
             method: "POST",
             headers: {
-                "Accept": "application/json, text/plain, */*",
-                "Content-Type": "application/json",
-                "Origin": "https://www.bajajlifeinsurance.com",
-                "Referer": "https://www.bajajlifeinsurance.com/"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(fullPayload)
         });
-
-        ; //   point 2: After API response
 
         const result = await response.json();
 
         return result;
     } catch (error) {
-        // LMS API Error
-        ; //   point 3: On error
+        console.error("LMS Submission Error:", error);
         throw error;
     }
 };

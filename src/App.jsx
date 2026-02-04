@@ -22,6 +22,7 @@ function App() {
         currentQuestionIndex,
         score,
         leadName,
+        lives,
         showSuccessToast,
         successMessage,
         setShowSuccessToast,
@@ -55,6 +56,7 @@ function App() {
                         currentGoalIndex={currentGoalIndex}
                         currentQuestionIndex={currentQuestionIndex}
                         score={score}
+                        lives={lives}
                         onAnswer={(ans) => advanceGame(ans, selectedGoals[currentGoalIndex], selectedGoals.length)}
                     />
                 );

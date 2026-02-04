@@ -22,6 +22,8 @@ export const useGameState = () => {
     const [showSuccessToast, setShowSuccessToast] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [leadName, setLeadName] = useState('');
+    const [lives, setLives] = useState(3);
+    const [isGameOver, setIsGameOver] = useState(false);
 
     const { playSound } = useSound();
 
@@ -157,14 +159,26 @@ export const useGameState = () => {
             playSound('correct');
         } else {
             playSound('incorrect');
+            setLives(prev => {
+                const newLives = prev - 1;
+                if (newLives <= 0) {
+                    setIsGameOver(true);
+                    stopGameTimer();
+                    // We might want to show a game over screen or just go to results with current score
+                    setCurrentScreen(SCREENS.SCORE_RESULTS);
+                }
+                return newLives;
+            });
         }
 
         setResponses(prev => [...prev, {
             goalId: currentGoal.id,
             goalName: currentGoal.name,
             questionIndex: currentQuestionIndex,
-            answer: isCorrect // or the actual answer bool
+            answer: isCorrect
         }]);
+
+        if (!isCorrect && lives <= 1) return; // Stop progression if game over
 
         if (currentQuestionIndex < 2) {
             setCurrentQuestionIndex(prev => prev + 1);
@@ -175,7 +189,7 @@ export const useGameState = () => {
             stopGameTimer();
             handleEndOfGame();
         }
-    }, [currentQuestionIndex, currentGoalIndex, playSound, handleEndOfGame, stopGameTimer]);
+    }, [currentQuestionIndex, currentGoalIndex, lives, playSound, handleEndOfGame, stopGameTimer]);
 
 
     const handleCallNow = () => window.location.href = 'tel:+911800209999';
@@ -207,6 +221,8 @@ export const useGameState = () => {
         setCurrentQuestionIndex(0);
         setResponses([]);
         setScore(0);
+        setLives(3);
+        setIsGameOver(false);
         stopGameTimer();
     };
 
@@ -217,6 +233,8 @@ export const useGameState = () => {
         currentQuestionIndex,
         score,
         leadName,
+        lives,
+        isGameOver,
         showSuccessToast,
         successMessage,
         setShowSuccessToast,
