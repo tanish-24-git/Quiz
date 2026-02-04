@@ -4,7 +4,7 @@ import { useSound } from './useSound';
 export const SCREENS = {
     WELCOME: 'welcome',
     GOAL_SELECTION: 'goal_selection',
-    INSTRUCTIONS: 'instructions',
+
     ASSESSMENT: 'assessment',
     SCORE_RESULTS: 'score_results',
     BOOKING: 'booking',
@@ -68,15 +68,13 @@ export const useGameState = () => {
 
     const handleGoalsSelected = useCallback((goals) => {
         setSelectedGoals(goals);
-        setCurrentScreen(SCREENS.INSTRUCTIONS);
-    }, []);
-
-    const startQuest = useCallback(() => {
         setCurrentGoalIndex(0);
         setCurrentQuestionIndex(0);
         setCurrentScreen(SCREENS.ASSESSMENT);
         startGameTimer();
     }, [startGameTimer]);
+
+
 
     const handleAnswer = useCallback((answer) => {
         setResponses(prev => {
@@ -240,7 +238,7 @@ export const useGameState = () => {
         setShowSuccessToast,
         startGame,
         handleGoalsSelected,
-        startQuest,
+
         advanceGame,
         handleCallNow,
         handleBookSlot,
