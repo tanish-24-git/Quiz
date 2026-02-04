@@ -99,7 +99,7 @@ export const useGameState = () => {
 
         // Re-implementing logic with safety:
         if (answer) {
-            setScore(prev => prev + 111);
+            setScore(prev => prev + 11.11);
             playSound('correct');
         } else {
             playSound('incorrect');
@@ -134,7 +134,7 @@ export const useGameState = () => {
         }]);
 
         if (answer) {
-            setScore(prev => prev + 111);
+            setScore(prev => prev + 11.11);
             playSound('correct');
         } else {
             playSound('incorrect');
@@ -158,7 +158,7 @@ export const useGameState = () => {
     // Let's use a simpler "Action" pattern for the game progression
     const advanceGame = useCallback((isCorrect, currentGoal, totalGoals) => {
         if (isCorrect) {
-            setScore(prev => prev + 111);
+            setScore(prev => prev + 11.11);
             playSound('correct');
         } else {
             playSound('incorrect');

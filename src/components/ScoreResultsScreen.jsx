@@ -14,7 +14,7 @@ const ScoreResultsScreen = ({
     onBookSlot,
     onTalkToExpert
 }) => {
-    const percentage = Math.round((score / 999) * 100);
+    const percentage = Math.round((score / 100) * 100);
     const { playSound } = useSound();
 
     useEffect(() => {
