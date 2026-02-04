@@ -34,28 +34,28 @@ const ScoreResultsScreen = ({
 
     return (
         <motion.div
-            className="w-full max-w-lg mx-auto font-pixel px-4"
+            className="w-full max-w-xs sm:max-w-md md:max-w-lg mx-auto font-pixel px-3 sm:px-4"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
         >
             <Confetti />
 
-            {/* Pixel Card Container - Golden Ratio Width/Padding */}
+            {/* Pixel Card Container - Responsive sizing */}
             <div className="relative pixel-borders bg-slate-900 border-4 border-slate-700 overflow-hidden shadow-2xl">
 
                 {/* Header / Victory Scene */}
-                <div className="relative bg-sky-600 p-0 pb-phi-2 overflow-visible">
+                <div className="relative bg-sky-600 p-0 pb-6 sm:pb-8 md:pb-12 overflow-visible">
                     {/* Retro Reward with Spinning Background */}
                     <RetroReward scorePercentage={percentage} />
                 </div>
 
                 {/* Content Area - Professional/White Theme */}
-                <CardContent className="p-phi-1 relative z-10 -mt-8 bg-white border-t-4 border-slate-900 mx-4 mb-4 shadow-lg flex flex-col gap-phi-1">
+                <CardContent className="p-4 sm:p-6 md:p-8 relative z-10 -mt-6 sm:mt-8 bg-white border-t-4 border-slate-900 mx-3 sm:mx-4 mb-3 sm:mb-4 shadow-lg flex flex-col gap-4 sm:gap-6">
 
                     {/* Message Box */}
-                    <div className="bg-blue-50 border-2 border-blue-100 p-3 rounded-none text-center shadow-sm pixel-borders-sm">
-                        <p className="text-sm sm:text-base text-gray-800 leading-relaxed font-bold uppercase tracking-wide">
+                    <div className="bg-blue-50 border-2 border-blue-100 p-2.5 sm:p-3 rounded-none text-center shadow-sm pixel-borders-sm">
+                        <p className="text-xs sm:text-sm md:text-base text-gray-800 leading-relaxed font-bold uppercase tracking-wide">
                             {getScoreMessage()}
                         </p>
                     </div>
@@ -81,28 +81,28 @@ const ScoreResultsScreen = ({
                     </div>
 
                     {/* Input/CTA Section */}
-                    <div className="space-y-3">
+                    <div className="space-y-2 sm:space-y-3">
                         <button
                             onClick={onTalkToExpert}
-                            className="bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 px-6 w-full shadow-[0_4px_0_#cc5500] active:shadow-none active:translate-y-[2px] transition-all flex items-center justify-center gap-2 uppercase tracking-widest text-sm border-none pixel-borders-sm"
+                            className="bg-brand-orange hover:bg-orange-600 text-white font-bold py-2.5 sm:py-3 px-4 sm:px-6 w-full shadow-[0_4px_0_#cc5500] active:shadow-none active:translate-y-[2px] transition-all flex items-center justify-center gap-2 uppercase tracking-widest text-xs sm:text-sm border-none pixel-borders-sm"
                         >
-                            <MessageCircle className="w-5 h-5" />
+                            <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                             <span>CLAIM REWARD</span>
                         </button>
 
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                             <button
                                 onClick={onCallNow}
-                                className="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 text-xs font-bold transition-colors border-2 border-slate-200 shadow-[0_2px_0_#cbd5e1] active:translate-y-[1px] active:shadow-none uppercase tracking-wide pixel-borders-sm"
+                                className="flex items-center justify-center gap-1.5 sm:gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold transition-colors border-2 border-slate-200 shadow-[0_2px_0_#cbd5e1] active:translate-y-[1px] active:shadow-none uppercase tracking-wide pixel-borders-sm"
                             >
-                                <Phone className="w-4 h-4" /> CALL
+                                <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> CALL
                             </button>
 
                             <button
                                 onClick={onBookSlot}
-                                className="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 text-xs font-bold transition-colors border-2 border-slate-200 shadow-[0_2px_0_#cbd5e1] active:translate-y-[1px] active:shadow-none uppercase tracking-wide pixel-borders-sm"
+                                className="flex items-center justify-center gap-1.5 sm:gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold transition-colors border-2 border-slate-200 shadow-[0_2px_0_#cbd5e1] active:translate-y-[1px] active:shadow-none uppercase tracking-wide pixel-borders-sm"
                             >
-                                <Calendar className="w-4 h-4" /> BOOK
+                                <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> BOOK
                             </button>
                         </div>
                     </div>

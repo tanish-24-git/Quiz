@@ -104,13 +104,13 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300">
+        <div className="min-h-[100dvh] bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300">
             {/* Main Content */}
-            <main className="flex-1 flex items-center justify-center p-4 sm:p-8">
+            <main className="flex-1 flex items-center justify-center p-3 sm:p-6 md:p-8">
                 <div
-                    className="w-full min-h-[500px]"
+                    className="w-full"
                     style={{
-                        maxWidth: 'min(900px, 100%)',
+                        maxWidth: 'min(56.25rem, 100%)', /* 900px */
                     }}
                 >
                     <AnimatePresence mode="wait">

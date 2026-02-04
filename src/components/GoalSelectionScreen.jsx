@@ -48,21 +48,21 @@ const GoalSelectionScreen = ({ onProceed }) => {
 
     return (
         <motion.div
-            className="w-full max-w-5xl mx-auto font-pixel px-4 h-[100dvh] flex items-center justify-center"
+            className="w-full max-w-5xl mx-auto font-pixel px-3 sm:px-4 md:px-6 min-h-[100dvh] flex items-center justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
         >
             {/* Pixel Card Container - Responsive sizing */}
-            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full min-h-[600px] sm:min-h-[700px] flex flex-col shadow-2xl">
+            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full min-h-[85vh] sm:min-h-[600px] md:min-h-[700px] flex flex-col shadow-2xl">
                 {/* Retro Grid Background */}
                 <div className="absolute inset-0 pixel-grid-bg-light opacity-50 pointer-events-none" />
 
-                <div className="relative z-10 p-phi-1 sm:p-phi-2 flex-1 flex flex-col justify-between h-full">
+                <div className="relative z-10 p-4 sm:p-6 md:p-8 flex-1 flex flex-col justify-between h-full">
                     {/* Header - Compact on Golden Ratio */}
-                    <div className="text-center mb-phi-1 flex-shrink-0">
-                        <h2 className="text-lg sm:text-2xl text-white mb-2 sm:mb-4 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)] leading-relaxed">
+                    <div className="text-center mb-4 sm:mb-6 flex-shrink-0">
+                        <h2 className="text-base sm:text-xl md:text-2xl text-white mb-2 sm:mb-4 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)] leading-relaxed">
                             SELECT 3 GOALS
                         </h2>
 
@@ -82,8 +82,8 @@ const GoalSelectionScreen = ({ onProceed }) => {
                         </div>
                     </div>
 
-                    {/* Goals Grid - Responsive 3x3 */}
-                    <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-phi-1 flex-1 content-center">
+                    {/* Goals Grid - Responsive: 1 col mobile, 2 col larger mobile, 3 col tablet+ */}
+                    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6 flex-1 content-center">
                         {lifeGoals.map((goal, index) => {
                             const IconComponent = iconMap[goal.icon];
                             const isSelected = selectedGoals.includes(goal.id);
@@ -97,7 +97,7 @@ const GoalSelectionScreen = ({ onProceed }) => {
                                     transition={{ delay: index * 0.05 }}
                                     onClick={() => !isDisabled && toggleGoal(goal.id)}
                                     disabled={isDisabled}
-                                    className={`relative p-2 sm:p-3 h-full min-h-[5rem] sm:min-h-[6rem] flex flex-col items-center justify-center gap-1 sm:gap-2 transition-all duration-200 pixel-borders-sm ${isSelected
+                                    className={`relative p-2 sm:p-3 md:p-4 h-full min-h-[4.5rem] sm:min-h-[5.5rem] md:min-h-[6.5rem] flex flex-col items-center justify-center gap-1 sm:gap-2 transition-all duration-200 pixel-borders-sm ${isSelected
                                         ? 'bg-gradient-to-br from-green-400 to-green-600 border-green-700 translate-y-1'
                                         : isDisabled
                                             ? 'bg-slate-800 border-slate-700 opacity-50 cursor-not-allowed'
@@ -112,10 +112,10 @@ const GoalSelectionScreen = ({ onProceed }) => {
 
                                     <div className={`p-1.5 sm:p-2 rounded ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-900/50 text-blue-300'
                                         }`}>
-                                        {IconComponent && <IconComponent className="w-4 h-4 sm:w-6 sm:h-6" />}
+                                        {IconComponent && <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />}
                                     </div>
 
-                                    <span className={`text-[8px] sm:text-[10px] md:text-xs leading-tight uppercase transition-colors ${isSelected ? 'text-white font-bold drop-shadow-sm' : 'text-slate-400'
+                                    <span className={`text-[9px] sm:text-[10px] md:text-xs leading-tight uppercase transition-colors text-center ${isSelected ? 'text-white font-bold drop-shadow-sm' : 'text-slate-400'
                                         }`}>
                                         {goal.name}
                                     </span>
@@ -128,7 +128,7 @@ const GoalSelectionScreen = ({ onProceed }) => {
                         <PixelButton
                             onClick={handleProceed}
                             variant="neutral"
-                            className={`w-full py-4 !text-xs sm:!text-sm font-bold uppercase tracking-widest transition-all duration-200 whitespace-nowrap
+                            className={`w-full py-3 sm:py-4 !text-[10px] sm:!text-xs md:!text-sm font-bold uppercase tracking-widest transition-all duration-200 whitespace-nowrap
                                 ${selectedGoals.length === 3
                                     ? 'bg-brand-orange text-white hover:bg-orange-600 shadow-[4px_4px_0_rgba(0,0,0,0.5)] border-2 border-white translate-x-0 translate-y-0 active:translate-x-1 active:translate-y-1 active:shadow-none'
                                     : 'bg-slate-700 text-slate-400 border-2 border-slate-600 opacity-50 cursor-not-allowed'

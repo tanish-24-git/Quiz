@@ -84,14 +84,14 @@ const GoalAssessmentScreen = ({
     return (
         <motion.div
             key={`${currentGoal.id}-${currentQuestionIndex}`}
-            className="w-full mx-auto px-2 sm:px-4 font-pixel h-[100dvh] flex flex-col items-center justify-center overflow-hidden"
+            className="w-full mx-auto px-3 sm:px-4 md:px-6 font-pixel min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.4 }}
         >
-            {/* Main Pixel Container - Light Blue Theme with Golden Ratio proportions */}
-            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full max-w-[700px] aspect-golden-portrait sm:aspect-auto sm:min-h-[600px] flex flex-col shadow-2xl transition-all duration-300">
+            {/* Main Pixel Container - Light Blue Theme with responsive height */}
+            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full max-w-[56.25rem] h-[calc(100dvh-2rem)] sm:h-auto sm:min-h-[600px] md:min-h-[650px] flex flex-col shadow-2xl transition-all duration-300">
 
                 {/* Retro Grid Background - Subtle White */}
                 <div className="absolute inset-0 pixel-grid-bg-light opacity-30 pointer-events-none" />
@@ -111,8 +111,8 @@ const GoalAssessmentScreen = ({
                     )}
                 </AnimatePresence>
 
-                {/* --- HEADER SECTION (~15%) --- */}
-                <div className="relative z-20 p-4 sm:p-6 grid grid-cols-3 items-center">
+                {/* --- HEADER SECTION --- */}
+                <div className="relative z-20 p-3 sm:p-4 md:p-6 grid grid-cols-3 items-center">
                     {/* Left Side - Level */}
                     <div className="text-white text-left">
                         <motion.div
@@ -128,7 +128,7 @@ const GoalAssessmentScreen = ({
                     {/* Center - Goal Name */}
                     <div className="flex justify-center w-full">
                         <motion.div
-                            className="text-brand-orange font-bold uppercase text-sm sm:text-xl tracking-widest text-center leading-tight"
+                            className="text-brand-orange font-bold uppercase text-xs sm:text-base md:text-lg tracking-widest text-center leading-tight"
                             initial={{ opacity: 0, y: -20 }}
                             animate={{
                                 opacity: 1,
@@ -137,7 +137,7 @@ const GoalAssessmentScreen = ({
                             transition={{ duration: 0.4 }}
                         >
                             <span
-                                className="relative inline-block px-4 py-2 bg-white"
+                                className="relative inline-block px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 bg-white"
                                 style={{
                                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
                                 }}
@@ -161,16 +161,16 @@ const GoalAssessmentScreen = ({
                 </div>
 
                 {/* Progress Bar */}
-                <div className="relative z-20 px-4 sm:px-6 mb-2 sm:mb-4">
+                <div className="relative z-20 px-3 sm:px-4 md:px-6 mb-2 sm:mb-3 md:mb-4">
                     <PixelProgressBar progress={overallProgress} />
                 </div>
 
-                {/* --- CORE CONTENT AREA (~60%) --- */}
-                <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-4 sm:p-6 text-center">
-                    <div className="space-y-4 sm:space-y-6 max-w-[90%]">
-                        {/* Question Text - Scaled for screens */}
+                {/* --- CORE CONTENT AREA --- */}
+                <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-3 sm:p-4 md:p-6 text-center">
+                    <div className="space-y-3 sm:space-y-4 md:space-y-6 max-w-[95%] sm:max-w-[90%]">
+                        {/* Question Text - Responsive font scaling */}
                         <motion.h2
-                            className="text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white leading-relaxed drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)] uppercase tracking-tight"
+                            className="text-base sm:text-lg md:text-2xl lg:text-3xl text-white leading-relaxed drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)] uppercase tracking-tight"
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.2 }}
@@ -189,19 +189,19 @@ const GoalAssessmentScreen = ({
                     </div>
                 </div>
 
-                {/* --- ACTIONS SECTION (~25%) --- */}
-                <div className="relative z-20 p-4 sm:p-8 flex flex-col items-center gap-6 sm:gap-8">
-                    {/* Pixel Buttons - Responsive Gap */}
-                    <div className="flex justify-center gap-4 sm:gap-8 w-full max-w-sm">
+                {/* --- ACTIONS SECTION --- */}
+                <div className="relative z-20 p-3 sm:p-4 md:p-6 flex flex-col items-center gap-4 sm:gap-6 md:gap-8">
+                    {/* Pixel Buttons - Responsive sizing with proper touch targets */}
+                    <div className="flex justify-center gap-3 sm:gap-6 md:gap-8 w-full max-w-md">
                         <PixelButton
                             onClick={(e) => handleAnswer(true, e)}
-                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4 transition-all duration-200"
+                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-xs sm:text-sm md:text-base py-2.5 px-6 sm:py-3 sm:px-8 md:py-4 md:px-10 transition-all duration-200 min-w-[5rem] sm:min-w-[6rem]"
                         >
                             YES
                         </PixelButton>
                         <PixelButton
                             onClick={(e) => handleAnswer(false, e)}
-                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4 transition-all duration-200"
+                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-xs sm:text-sm md:text-base py-2.5 px-6 sm:py-3 sm:px-8 md:py-4 md:px-10 transition-all duration-200 min-w-[5rem] sm:min-w-[6rem]"
                         >
                             NO
                         </PixelButton>

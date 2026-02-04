@@ -5,6 +5,14 @@
 @tailwind utilities;
 
 @layer base {
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+    }
+
     :root {
         /* ... existing vars ... */
         /* Bajaj Life Insurance Brand Colors - Exact Match */
@@ -56,14 +64,24 @@
         /* Golden Ratio Variables */
         --phi: 1.618;
         --phi-inverse: 0.618;
-        
-        /* Fibonacci Spacing Scale (based on golden ratio) */
-        --space-xs: 8px;
-        --space-sm: 13px;
-        --space-md: 21px;
-        --space-lg: 34px;
-        --space-xl: 55px;
-        --space-2xl: 89px;
+
+        /* Responsive Spacing Scale (rem-based for accessibility) */
+        /* Base: 1rem = 16px (browser default) */
+        --space-xs: 0.5rem;
+        /* 8px */
+        --space-sm: 0.75rem;
+        /* 12px */
+        --space-md: 1rem;
+        /* 16px */
+        --space-lg: 1.5rem;
+        /* 24px */
+        --space-xl: 2rem;
+        /* 32px */
+        --space-2xl: 2.5rem;
+        /* 40px */
+        --space-3xl: 3rem;
+        /* 48px */
+
 
         /* Wooden Game UI Colors */
         --wood-dark: #5c4033;
@@ -71,7 +89,7 @@
         --wood-light: #a68a64;
         --wood-border: #4a3526;
         --wood-highlight: #c9a97a;
-        
+
         /* Game UI Colors */
         --game-green: #7ed321;
         --game-green-dark: #5fb304;
@@ -79,7 +97,7 @@
         --game-cyan-dark: #2fb3aa;
         --game-red: #e74c3c;
         --game-yellow: #f1c40f;
-        
+
         /* Pixel Art Colors */
         --pixel-blue: #0066B2;
         --pixel-blue-dark: #004d88;
@@ -128,6 +146,8 @@
     body {
         @apply bg-background text-foreground;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        min-height: 100dvh;
+        overflow-x: hidden;
     }
 }
 
@@ -138,7 +158,7 @@
     }
 
     .pixel-borders {
-        box-shadow: 
+        box-shadow:
             -4px 0 0 0 var(--charcoal),
             4px 0 0 0 var(--charcoal),
             0 -4px 0 0 var(--charcoal),
@@ -147,7 +167,7 @@
     }
 
     .pixel-borders-sm {
-        box-shadow: 
+        box-shadow:
             -2px 0 0 0 var(--charcoal),
             2px 0 0 0 var(--charcoal),
             0 -2px 0 0 var(--charcoal),
@@ -157,15 +177,16 @@
 
     .pixel-grid-bg {
         background-color: #2D3748;
-        background-image: 
+        background-image:
             linear-gradient(#1a202c 1px, transparent 1px),
             linear-gradient(90deg, #1a202c 1px, transparent 1px);
         background-size: 20px 20px;
     }
-    
+
     .pixel-grid-bg-light {
-        background-color: #0284c7; /* Sky 600 - Darker Blue for better contrast */
-        background-image: 
+        background-color: #0284c7;
+        /* Sky 600 - Darker Blue for better contrast */
+        background-image:
             linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
         background-size: 32px 32px;
@@ -173,7 +194,7 @@
 
     .pixel-grid-bg-blue {
         background-color: var(--pixel-blue);
-        background-image: 
+        background-image:
             linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
         background-size: 30px 30px;
@@ -234,53 +255,93 @@
 
 /* Gaming Animations */
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px) rotate(-1deg); }
-    75% { transform: translateX(4px) rotate(1deg); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px) rotate(-1deg);
+    }
+
+    75% {
+        transform: translateX(4px) rotate(1deg);
+    }
 }
 
 @keyframes bounce-in {
-    0% { transform: scale(0.3); opacity: 0; }
-    50% { transform: scale(1.05); }
-    70% { transform: scale(0.9); }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 10px rgba(126, 211, 33, 0.5); }
-    50% { box-shadow: 0 0 20px rgba(126, 211, 33, 0.8); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(126, 211, 33, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(126, 211, 33, 0.8);
+    }
 }
 
 @keyframes slide-fill {
-    from { width: 0%; }
-    to { width: var(--target-width); }
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: var(--target-width);
+    }
 }
 
 @keyframes particle-burst {
-    0% { 
+    0% {
         transform: translate(0, 0) scale(1);
         opacity: 1;
     }
-    100% { 
+
+    100% {
         transform: translate(var(--tx), var(--ty)) scale(0);
         opacity: 0;
     }
 }
 
 @keyframes wood-shine {
-    0% { background-position: -200% center; }
-    100% { background-position: 200% center; }
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
 }
 
 /* Wooden Texture Utilities */
 .wood-texture {
-    background: linear-gradient(135deg, 
-        var(--wood-dark) 0%, 
-        var(--wood-md) 25%, 
-        var(--wood-light) 50%, 
-        var(--wood-md) 75%, 
-        var(--wood-dark) 100%
-    );
+    background: linear-gradient(135deg,
+            var(--wood-dark) 0%,
+            var(--wood-md) 25%,
+            var(--wood-light) 50%,
+            var(--wood-md) 75%,
+            var(--wood-dark) 100%);
     position: relative;
 }
 
@@ -288,30 +349,27 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 3px,
-        rgba(0, 0, 0, 0.03) 3px,
-        rgba(0, 0, 0, 0.03) 6px
-    );
+    background: repeating-linear-gradient(90deg,
+            transparent,
+            transparent 3px,
+            rgba(0, 0, 0, 0.03) 3px,
+            rgba(0, 0, 0, 0.03) 6px);
     pointer-events: none;
 }
 
 .wood-border {
     border: 4px solid var(--wood-border);
-    box-shadow: 
+    box-shadow:
         inset 0 2px 4px rgba(0, 0, 0, 0.3),
         inset 0 -2px 4px rgba(255, 255, 255, 0.1),
         0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .wood-inset {
-    background: linear-gradient(180deg, 
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.1) 50%,
-        rgba(255, 255, 255, 0.05) 100%
-    );
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(255, 255, 255, 0.05) 100%);
     box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4);
 }
 
@@ -326,4 +384,158 @@
 
 .game-glow {
     animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* ===================================
+   RESPONSIVE MEDIA QUERIES
+   =================================== */
+
+/* Tablet: 768px and up */
+@media (min-width: 768px) {
+    :root {
+        --space-xs: 0.625rem;
+        /* 10px */
+        --space-sm: 1rem;
+        /* 16px */
+        --space-md: 1.25rem;
+        /* 20px */
+        --space-lg: 2rem;
+        /* 32px */
+        --space-xl: 2.5rem;
+        /* 40px */
+        --space-2xl: 3rem;
+        /* 48px */
+        --space-3xl: 4rem;
+        /* 64px */
+    }
+}
+
+/* Desktop: 1024px and up */
+@media (min-width: 1024px) {
+    :root {
+        --space-xs: 0.75rem;
+        /* 12px */
+        --space-sm: 1.125rem;
+        /* 18px */
+        --space-md: 1.5rem;
+        /* 24px */
+        --space-lg: 2.5rem;
+        /* 40px */
+        --space-xl: 3rem;
+        /* 48px */
+        --space-2xl: 4rem;
+        /* 64px */
+        --space-3xl: 5rem;
+        /* 80px */
+    }
+}
+
+/* ===================================
+   RESPONSIVE UTILITY CLASSES
+   =================================== */
+
+/* Full viewport container */
+.full-viewport-container {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Responsive content wrapper with max-width */
+.responsive-container {
+    width: 100%;
+    max-width: 75rem;
+    /* 1200px */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+}
+
+/* Responsive grid system */
+.responsive-grid {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: 1fr;
+    /* Mobile: 1 column */
+}
+
+/* Larger mobile: 2 columns at 430px+ */
+@media (min-width: 430px) {
+    .responsive-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablet: 3 columns at 768px+ */
+@media (min-width: 768px) {
+    .responsive-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+    }
+}
+
+/* Responsive button base */
+.btn-responsive {
+    width: 100%;
+    min-height: 3rem;
+    /* 48px - proper touch target */
+    padding: 0.75rem 1.5rem;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+    .btn-responsive {
+        width: auto;
+        min-width: 12rem;
+        /* 192px */
+        max-width: 24rem;
+        /* 384px */
+    }
+}
+
+/* Responsive typography scale using clamp() */
+.text-responsive-xs {
+    font-size: clamp(0.625rem, 1.5vw, 0.75rem);
+}
+
+.text-responsive-sm {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+}
+
+.text-responsive-base {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+}
+
+.text-responsive-lg {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+}
+
+.text-responsive-xl {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+}
+
+.text-responsive-2xl {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.text-responsive-3xl {
+    font-size: clamp(1.875rem, 6vw, 3rem);
+}
+
+/* Prevent layout shift */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure buttons/inputs are properly sized on mobile */
+button,
+input,
+select,
+textarea {
+    font-size: 1rem;
+    /* Prevent zoom on iOS */
 }
