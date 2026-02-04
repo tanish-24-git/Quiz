@@ -186,26 +186,16 @@ const GoalAssessmentScreen = ({
                     <div className="flex justify-center gap-4 sm:gap-8 w-full max-w-sm">
                         <PixelButton
                             onClick={(e) => handleAnswer(true, e)}
-                            className="bg-white hover:bg-slate-100 !text-brand-orange shadow-[0_4px_0_#cbd5e1] text-sm sm:text-lg py-3 sm:py-4"
+                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4 transition-all duration-200"
                         >
                             YES
                         </PixelButton>
                         <PixelButton
                             onClick={(e) => handleAnswer(false, e)}
-                            className="bg-brand-orange text-white hover:text-white shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4"
+                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4 transition-all duration-200"
                         >
                             NO
                         </PixelButton>
-                    </div>
-
-                    {/* Footer Lives - Compact on Mobile */}
-                    <div className="flex justify-center gap-1.5 sm:gap-2 text-white">
-                        {[1, 2, 3].map(idx => (
-                            <Heart
-                                key={idx}
-                                className={`w-5 h-5 sm:w-6 sm:h-6 ${idx <= lives ? 'fill-white' : 'opacity-30'}`}
-                            />
-                        ))}
                     </div>
                 </div>
             </div>
