@@ -85,7 +85,7 @@ function App() {
     };
 
     return (
-        <div className="h-[100dvh] w-full flex flex-col font-sans transition-colors duration-300 pixel-grid-bg-blue overflow-hidden">
+        <div className="h-[100dvh] w-full flex flex-col font-sans transition-colors duration-300 bg-white overflow-hidden">
             {/* Main Content */}
             <main className="flex-1 flex flex-col items-center justify-center p-0 overflow-hidden relative">
                 <AnimatePresence mode="wait">

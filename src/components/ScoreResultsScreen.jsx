@@ -50,7 +50,7 @@ const ScoreResultsScreen = ({ score, selectedGoals, onBookSlot, onRestart }) => 
 
     return (
         <div 
-            className="w-full h-full sm:h-auto sm:max-w-md sm:min-h-[600px] shadow-2xl relative font-sans text-white border-4 border-white/20 pixel-grid-bg-blue overflow-hidden"
+            className="w-full h-full sm:h-auto sm:max-w-md sm:min-h-[600px] sm:shadow-2xl relative font-sans text-white bg-sky-600 overflow-hidden sm:pixel-borders sm:border-4 sm:border-sky-800"
         >
             <Confetti />
 
@@ -81,7 +81,7 @@ const ScoreResultsScreen = ({ score, selectedGoals, onBookSlot, onRestart }) => 
 
                 <div className="relative py-1 mb-4">
                     <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/20"></div></div>
-                    <div className="relative flex justify-center text-xs uppercase"><span className="px-3 bg-[#0066B2] text-blue-100 font-medium tracking-widest">Or</span></div>
+                    <div className="relative flex justify-center text-xs uppercase"><span className="px-3 bg-sky-600 text-blue-100 font-medium tracking-widest">Or</span></div>
                 </div>
 
                 <div className="font-bold text-base mb-2 text-white">Book a convenient slot</div>
