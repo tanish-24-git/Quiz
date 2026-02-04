@@ -82,7 +82,7 @@ const WelcomeScreen = ({ onStart }) => {
                             animate={isTransitioning ? { scale: [1, 1.2, 1], filter: ['blur(0px)', 'blur(4px)', 'blur(0px)'] } : { opacity: [0.6, 1, 0.6] }}
                             transition={{ duration: isTransitioning ? 0.3 : 2, repeat: isTransitioning ? 0 : Infinity }}
                         >
-                            ARE YOU READY, ADVENTURER?
+                            ARE YOU READY?
                         </motion.p>
                     </div>
 
@@ -98,7 +98,7 @@ const WelcomeScreen = ({ onStart }) => {
                         </div>
                         <div className="flex items-center gap-4 sm:gap-5">
                             <span className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-sky-50 flex items-center justify-center text-sky-600 font-bold text-[10px] sm:text-sm">3</span>
-                            <span className="font-sans text-slate-700 text-[10px] sm:text-sm font-medium uppercase tracking-wider">CLAIM YOUR FUTURE REWARD</span>
+                            <span className="font-sans text-slate-700 text-[10px] sm:text-sm font-medium uppercase tracking-wider">Calculate Life goal score</span>
                         </div>
                     </div>
 

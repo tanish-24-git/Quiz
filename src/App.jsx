@@ -8,11 +8,11 @@ import './index.css';
 const WelcomeScreen = lazy(() => import('./components/WelcomeScreen'));
 const GoalSelectionScreen = lazy(() => import('./components/GoalSelectionScreen'));
 const GoalAssessmentScreen = lazy(() => import('./components/GoalAssessmentScreen'));
-const QuestInstructions = lazy(() => import('./components/QuestInstructions'));
 const ScoreResultsScreen = lazy(() => import('./components/ScoreResultsScreen'));
 const BookingScreen = lazy(() => import('./components/BookingScreen'));
 const LeadCaptureForm = lazy(() => import('./components/LeadCaptureForm'));
 const ThankYouScreen = lazy(() => import('./components/ThankYouScreen'));
+const RetroCountdown = lazy(() => import('./components/RetroCountdown'));
 
 function App() {
     const {
@@ -28,7 +28,8 @@ function App() {
         setShowSuccessToast,
         startGame,
         handleGoalsSelected,
-        startQuest,
+        startAssessment,
+
         advanceGame,
         handleCallNow,
         handleBookSlot,
@@ -46,8 +47,8 @@ function App() {
                 return <WelcomeScreen key="welcome" onStart={startGame} />;
             case SCREENS.GOAL_SELECTION:
                 return <GoalSelectionScreen key="goal-selection" onProceed={handleGoalsSelected} />;
-            case SCREENS.INSTRUCTIONS:
-                return <QuestInstructions key="instructions" onStart={startQuest} />;
+            case SCREENS.COUNTDOWN:
+                return <RetroCountdown key="countdown" onComplete={startAssessment} />;
             case SCREENS.ASSESSMENT:
                 return selectedGoals.length > 0 && (
                     <GoalAssessmentScreen
@@ -113,7 +114,7 @@ function App() {
                     }}
                 >
                     <AnimatePresence mode="wait">
-                        <Suspense fallback={<div className="flex items-center justify-center h-full text-brand-orange font-pixel animate-pulse">Loading...</div>}>
+                        <Suspense fallback={<div className="flex items-center justify-center h-full"></div>}>
                             {renderScreen()}
                         </Suspense>
                     </AnimatePresence>

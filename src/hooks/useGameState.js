@@ -4,7 +4,8 @@ import { useSound } from './useSound';
 export const SCREENS = {
     WELCOME: 'welcome',
     GOAL_SELECTION: 'goal_selection',
-    INSTRUCTIONS: 'instructions',
+    COUNTDOWN: 'countdown',
+
     ASSESSMENT: 'assessment',
     SCORE_RESULTS: 'score_results',
     BOOKING: 'booking',
@@ -68,15 +69,17 @@ export const useGameState = () => {
 
     const handleGoalsSelected = useCallback((goals) => {
         setSelectedGoals(goals);
-        setCurrentScreen(SCREENS.INSTRUCTIONS);
+        setCurrentScreen(SCREENS.COUNTDOWN);
     }, []);
 
-    const startQuest = useCallback(() => {
+    const startAssessment = useCallback(() => {
         setCurrentGoalIndex(0);
         setCurrentQuestionIndex(0);
         setCurrentScreen(SCREENS.ASSESSMENT);
         startGameTimer();
     }, [startGameTimer]);
+
+
 
     const handleAnswer = useCallback((answer) => {
         setResponses(prev => {
@@ -96,7 +99,7 @@ export const useGameState = () => {
 
         // Re-implementing logic with safety:
         if (answer) {
-            setScore(prev => prev + 111);
+            setScore(prev => prev + 11.11);
             playSound('correct');
         } else {
             playSound('incorrect');
@@ -131,7 +134,7 @@ export const useGameState = () => {
         }]);
 
         if (answer) {
-            setScore(prev => prev + 111);
+            setScore(prev => prev + 11.11);
             playSound('correct');
         } else {
             playSound('incorrect');
@@ -154,21 +157,14 @@ export const useGameState = () => {
 
     // Let's use a simpler "Action" pattern for the game progression
     const advanceGame = useCallback((isCorrect, currentGoal, totalGoals) => {
+        const pointsPerQuestion = 100 / (totalGoals * 3);
+
         if (isCorrect) {
-            setScore(prev => prev + 111);
+            setScore(prev => prev + pointsPerQuestion);
             playSound('correct');
         } else {
             playSound('incorrect');
-            setLives(prev => {
-                const newLives = prev - 1;
-                if (newLives <= 0) {
-                    setIsGameOver(true);
-                    stopGameTimer();
-                    // We might want to show a game over screen or just go to results with current score
-                    setCurrentScreen(SCREENS.SCORE_RESULTS);
-                }
-                return newLives;
-            });
+            // Lives removed per user request to ensure full game progression
         }
 
         setResponses(prev => [...prev, {
@@ -178,7 +174,7 @@ export const useGameState = () => {
             answer: isCorrect
         }]);
 
-        if (!isCorrect && lives <= 1) return; // Stop progression if game over
+        // Proceed to next question regardless of correct/incorrect
 
         if (currentQuestionIndex < 2) {
             setCurrentQuestionIndex(prev => prev + 1);
@@ -240,7 +236,8 @@ export const useGameState = () => {
         setShowSuccessToast,
         startGame,
         handleGoalsSelected,
-        startQuest,
+        startAssessment,
+
         advanceGame,
         handleCallNow,
         handleBookSlot,

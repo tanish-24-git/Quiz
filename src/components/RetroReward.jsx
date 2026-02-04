@@ -116,7 +116,7 @@ const RetroReward = ({ scorePercentage }) => {
                 className="relative z-10 bg-black/50 backdrop-blur-sm px-6 py-2 rounded-full border-2 border-white/20"
             >
                 <div className="text-white text-sm sm:text-base">
-                    SCORE: <span className="text-yellow-400">{Math.floor(scorePercentage * 10)}</span>
+                    SCORE: <span className="text-yellow-400">{scorePercentage}</span>
                 </div>
             </motion.div>
 

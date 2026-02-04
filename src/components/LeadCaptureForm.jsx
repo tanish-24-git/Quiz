@@ -79,7 +79,7 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
-        email: ''
+        mobile: ''
     });
     const [errors, setErrors] = useState({});
 
@@ -93,7 +93,12 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
     const validateForm = () => {
         const newErrors = {};
         if (!formData.name.trim()) newErrors.name = "Full Name is required";
-        if (!isValidEmail(formData.email)) newErrors.email = "Valid email required";
+        if (formData.name.trim().length < 2) newErrors.name = "Name must be at least 2 characters";
+        if (!formData.mobile.trim()) {
+            newErrors.mobile = "Mobile number is required";
+        } else if (!isValidPhone(formData.mobile)) {
+            newErrors.mobile = "Please enter a valid 10-digit mobile number";
+        }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -104,31 +109,34 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
 
         setIsLoading(true);
 
-        // Map data to LMS JSON structure with null/empty for unused fields
+        // Map data to LMS JSON structure matching the provided snippet
         const lmsPayload = {
             name: formData.name,
-            age: "", // Default age
-            mobile_no: "", // Not collecting
-            email_id: formData.email,
-            goal_name: "1",
-            param1: null,
-            param2: null,
-            param3: null,
-            param4: "", // pincode
+            age: "",
+            mobile_no: formData.mobile,
+            email_id: "",
+            goal_name: "",
+            param1: "",
+            param2: "",
+            param3: "",
+            param4: "",
             param5: "",
             param13: "",
             param18: "",
-            param19: "", // DOB
+            param19: "",
             param20: "",
-            param23: "", // gender
-            param24: "", // occupation
-            param25: "", // education
-            param26: "", // income
-            param36: "online_sales",
+            param23: "",
+            param24: "",
+            param25: "",
+            param26: "",
+            param28: "",
+            param29: "",
+            param30: "",
+            param36: "ONLINE_SALES",
             summary_dtls: "",
-            p_user_eml: formData.email,
-            p_data_source: "WS_BUY_Game1",
-            p_curr_page_path: "https://www.bajajlifeinsurance.com/etouch/",
+            p_data_source: "WS_BUY_GAME1",
+            p_curr_page_path: "",
+            p_user_eml: "",
             p_ip_addsr: "",
             p_remark_url: "",
             prodId: "",
@@ -140,13 +148,9 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
             keyword: "",
             flag: "",
             parameter: "",
-            name1: "",
-            param28: "",
-            param29: "",
-            param30: ""
+            name1: ""
         };
 
-        // Simulate API call 
         try {
             await submitToLMS(lmsPayload);
             onSubmit(lmsPayload);
@@ -194,16 +198,25 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
                             </div>
 
                             <div className="space-y-1">
-                                <Label htmlFor="email" className="text-slate-700 font-bold uppercase text-xs tracking-wider">Email Guild ID <span className="text-red-500">*</span></Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    placeholder="hero@example.com"
-                                    value={formData.email}
-                                    onChange={(e) => updateField('email', e.target.value)}
-                                    className={`border-2 rounded-none focus:ring-0 ${errors.email ? 'border-red-500' : 'border-slate-300 focus:border-brand-blue'}`}
-                                />
-                                {errors.email && <p className="text-red-500 text-[10px] uppercase font-bold mt-1">{errors.email}</p>}
+                                <Label htmlFor="mobile" className="text-slate-700 font-bold uppercase text-xs tracking-wider">Mobile Number <span className="text-red-500">*</span></Label>
+                                <div className="flex gap-2">
+                                    <Input
+                                        type="text"
+                                        value="+91"
+                                        disabled
+                                        className="w-16 bg-slate-100 border-2 border-slate-300 rounded-none text-slate-500 text-center font-bold"
+                                    />
+                                    <Input
+                                        id="mobile"
+                                        type="tel"
+                                        placeholder="9876543210"
+                                        maxLength={10}
+                                        value={formData.mobile}
+                                        onChange={(e) => updateField('mobile', e.target.value.replace(/\D/g, '').slice(0, 10))}
+                                        className={`border-2 rounded-none focus:ring-0 ${errors.mobile ? 'border-red-500' : 'border-slate-300 focus:border-brand-blue'}`}
+                                    />
+                                </div>
+                                {errors.mobile && <p className="text-red-500 text-[10px] uppercase font-bold mt-1">{errors.mobile}</p>}
                             </div>
 
                             <PixelButton
