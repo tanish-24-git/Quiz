@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { assessmentQuestions } from '../data/lifeGoals';
 import PixelProgressBar from './PixelProgressBar';
 import PixelButton from './PixelButton';
@@ -14,17 +14,49 @@ const GoalAssessmentScreen = ({
     lives
 }) => {
     const [particles, setParticles] = useState([]);
+    const [timeLeft, setTimeLeft] = useState(30);
     const [isAnswering, setIsAnswering] = useState(false);
     const [flash, setFlash] = useState(null); // 'correct' or 'incorrect'
+    const timerRef = useRef(null);
 
     const currentQuestion = assessmentQuestions[currentQuestionIndex];
     if (!currentQuestion || !currentGoal) return null;
 
     const overallProgress = (currentGoalIndex * 3 + currentQuestionIndex + 1) / 9;
 
+    // Timer Logic
+    useEffect(() => {
+        // Reset answering state on new question
+        setIsAnswering(false);
+        setTimeLeft(30);
+
+        const timerCallback = () => {
+            setTimeLeft(prev => {
+                if (prev <= 1) {
+                    return 0;
+                }
+                return prev - 1;
+            });
+        };
+
+        timerRef.current = setInterval(timerCallback, 1000);
+
+        return () => clearInterval(timerRef.current);
+    }, [currentGoalIndex, currentQuestionIndex]);
+
+    // Handle Time Out
+    useEffect(() => {
+        if (timeLeft === 0 && !isAnswering) {
+            clearInterval(timerRef.current);
+            setIsAnswering(true);
+            onAnswer(false);
+        }
+    }, [timeLeft, onAnswer, isAnswering]);
+
     const handleAnswer = (answer, event) => {
         if (isAnswering) return;
         setIsAnswering(true);
+        clearInterval(timerRef.current);
 
         const rect = event.currentTarget.getBoundingClientRect();
         const x = rect.left + rect.width / 2;
@@ -80,11 +112,23 @@ const GoalAssessmentScreen = ({
                 </AnimatePresence>
 
                 {/* --- HEADER SECTION (~15%) --- */}
-                <div className="relative z-20 p-4 sm:p-6 flex justify-center items-center">
-                    <div className="text-white text-center flex flex-col items-center gap-2">
-                        {/* Goal Name - White highlighted background with orange text */}
+                <div className="relative z-20 p-4 sm:p-6 grid grid-cols-3 items-center">
+                    {/* Left Side - Level */}
+                    <div className="text-white text-left">
                         <motion.div
-                            className="text-brand-orange font-bold uppercase text-base sm:text-xl tracking-widest"
+                            className="font-bold text-xs sm:text-sm text-white"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.4, delay: 0.2 }}
+                        >
+                            LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}
+                        </motion.div>
+                    </div>
+
+                    {/* Center - Goal Name */}
+                    <div className="flex justify-center w-full">
+                        <motion.div
+                            className="text-brand-orange font-bold uppercase text-sm sm:text-xl tracking-widest text-center leading-tight"
                             initial={{ opacity: 0, y: -20 }}
                             animate={{
                                 opacity: 1,
@@ -101,16 +145,18 @@ const GoalAssessmentScreen = ({
                                 {currentGoal.name}
                             </span>
                         </motion.div>
+                    </div>
 
-                        {/* Level - Simple white text */}
-                        <motion.div
-                            className="font-bold text-xs sm:text-sm text-white"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.4, delay: 0.2 }}
-                        >
-                            LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}
-                        </motion.div>
+                    {/* Right Side - Timer Bar (no numbers) */}
+                    <div className="flex flex-col items-end gap-1.5">
+                        <div className="w-20 sm:w-32 h-3 sm:h-4 bg-sky-900/30 border-2 border-sky-900/50 overflow-hidden">
+                            <motion.div
+                                className={`h-full ${timeLeft <= 5 ? 'bg-red-500' : 'bg-brand-orange'}`}
+                                initial={{ width: "100%" }}
+                                animate={{ width: `${(timeLeft / 30) * 100}%` }}
+                                transition={{ duration: 1, ease: "linear" }}
+                            />
+                        </div>
                     </div>
                 </div>
 
