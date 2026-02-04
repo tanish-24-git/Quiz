@@ -81,6 +81,7 @@ const GoalAssessmentScreen = ({
                 {/* --- HEADER SECTION (~15%) --- */}
                 <div className="relative z-20 p-4 sm:p-6 flex justify-between items-start">
                     <div className="text-white text-[10px] sm:text-xs tracking-widest drop-shadow-md">
+                        <div className="mb-1 text-brand-orange font-bold uppercase text-xs sm:text-sm">{currentGoal.name}</div>
                         <div className="mb-1 opacity-80 font-bold">LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}</div>
                         <div className="text-white font-bold">XP: {Math.floor(overallProgress * 1000)}</div>
                     </div>

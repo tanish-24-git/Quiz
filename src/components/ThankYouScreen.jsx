@@ -32,7 +32,7 @@ const ThankYouScreen = ({ userName = "User", onRestart }) => {
                         </motion.div>
 
                         <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-white mb-2 leading-tight">
-                            Thank You, {userName}! 🎉
+                            Thank You, {userName}!
                         </h2>
 
                         <p className="text-slate-600 dark:text-slate-400 mb-8 text-lg font-medium">
