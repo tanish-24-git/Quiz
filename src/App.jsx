@@ -114,7 +114,7 @@ function App() {
                     }}
                 >
                     <AnimatePresence mode="wait">
-                        <Suspense fallback={<div className="flex items-center justify-center h-full text-brand-orange font-pixel animate-pulse">Loading...</div>}>
+                        <Suspense fallback={<div className="flex items-center justify-center h-full"></div>}>
                             {renderScreen()}
                         </Suspense>
                     </AnimatePresence>
