@@ -7,12 +7,13 @@ import QuestInstructions from './components/QuestInstructions';
 import ScoreResultsScreen from './components/ScoreResultsScreen';
 import BookingScreen from './components/BookingScreen';
 import LeadCaptureForm from './components/LeadCaptureForm';
+import ThankYouScreen from './components/ThankYouScreen';
 import SuccessToast from './components/SuccessToast';
 import quizQuestions from './data/questions';
 import { useSound } from './hooks/useSound';
 import { useTheme } from './hooks/useTheme';
 import { Button } from "./components/ui/button";
-import { Timer, Trophy } from "lucide-react";
+
 import './index.css';
 
 const SCREENS = {
@@ -33,9 +34,10 @@ function App() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [responses, setResponses] = useState([]);
     const [score, setScore] = useState(0);
-    const [globalTimeLeft, setGlobalTimeLeft] = useState(30);
+    const [globalTimeLeft, setGlobalTimeLeft] = useState(300);
     const [showSuccessToast, setShowSuccessToast] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const [leadName, setLeadName] = useState('');
 
     const { playSound } = useSound();
 
@@ -72,7 +74,7 @@ function App() {
         setCurrentQuestionIndex(0);
         setResponses([]);
         setScore(0);
-        setGlobalTimeLeft(30);
+        setGlobalTimeLeft(300);
     };
 
     // Handle goal selection complete - now goes to instructions
@@ -86,13 +88,13 @@ function App() {
         setCurrentGoalIndex(0);
         setCurrentQuestionIndex(0);
         setCurrentScreen(SCREENS.ASSESSMENT);
-        setGlobalTimeLeft(30);
+        setGlobalTimeLeft(300);
     };
 
     // Handle answer to assessment question
     const handleAnswer = (answer) => {
         const currentGoal = selectedGoals[currentGoalIndex];
-        
+
         const newResponse = {
             goalId: currentGoal.id,
             goalName: currentGoal.name,
@@ -102,7 +104,7 @@ function App() {
         setResponses(prev => [...prev, newResponse]);
 
         if (answer) {
-            setScore(prev => prev + 1);
+            setScore(prev => prev + 111);
             playSound('correct');
         } else {
             playSound('incorrect');
@@ -132,11 +134,8 @@ function App() {
 
     const handleLeadFormSubmit = (lmsPayload) => {
         playSound('success');
+        setLeadName(lmsPayload.name);
         setCurrentScreen(SCREENS.THANK_YOU);
-        
-        setTimeout(() => {
-            handleRestart();
-        }, 4000);
     };
 
     const handleSkipLeadForm = () => {
@@ -146,7 +145,7 @@ function App() {
     const handleBookingSubmit = (bookingData) => {
         playSound('success');
         setCurrentScreen(SCREENS.THANK_YOU);
-        
+
         setTimeout(() => {
             handleRestart();
         }, 3000);
@@ -163,38 +162,16 @@ function App() {
         setCurrentQuestionIndex(0);
         setResponses([]);
         setScore(0);
-        setGlobalTimeLeft(30);
+        setGlobalTimeLeft(300);
     };
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300">
-            {/* Header / HUD */}
-            <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-brand-blue backdrop-blur supports-[backdrop-filter]:bg-brand-blue/95 dark:bg-slate-900/95 shadow-md">
-                <div className="container flex h-16 max-w-screen-2xl items-center px-4 justify-between">
-                    <div className="flex items-center gap-4">
-                        <img 
-                            src="/bajaj_life.png" 
-                            alt="Bajaj Life Insurance" 
-                            className="h-10 w-auto bg-white p-1 rounded"
-                        />
-                        {currentScreen === SCREENS.ASSESSMENT && (
-                            <div className="hidden sm:flex items-center gap-4 border-l border-white/20 pl-4 font-pixel">
-                                <div className="flex items-center gap-2 text-white">
-                                    <Timer className={`w-4 h-4 ${globalTimeLeft <= 10 ? 'text-red-400 animate-pulse' : 'text-brand-orange'}`} />
-                                    <span className="text-xs uppercase tracking-widest font-bold">Global Time:</span>
-                                    <span className={`text-sm font-bold ${globalTimeLeft <= 10 ? 'text-red-400' : 'text-brand-orange'}`}>
-                                        {globalTimeLeft}s
-                                    </span>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </header>
+
 
             {/* Main Content */}
             <main className="flex-1 flex items-center justify-center p-4 sm:p-8">
-                <div 
+                <div
                     className="w-full min-h-[500px]"
                     style={{
                         maxWidth: 'min(900px, 100%)',
@@ -206,14 +183,14 @@ function App() {
                         )}
 
                         {currentScreen === SCREENS.GOAL_SELECTION && (
-                            <GoalSelectionScreen 
-                                key="goal-selection" 
-                                onProceed={handleGoalsSelected} 
+                            <GoalSelectionScreen
+                                key="goal-selection"
+                                onProceed={handleGoalsSelected}
                             />
                         )}
 
                         {currentScreen === SCREENS.INSTRUCTIONS && (
-                            <QuestInstructions 
+                            <QuestInstructions
                                 key="instructions"
                                 onStart={startQuest}
                             />
@@ -259,21 +236,11 @@ function App() {
                         )}
 
                         {currentScreen === SCREENS.THANK_YOU && (
-                            <div key="thank-you" className="text-center py-12 font-pixel">
-                                <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    className="mb-8"
-                                >
-                                    <Trophy className="w-16 h-16 text-yellow-500 mx-auto drop-shadow-lg" />
-                                </motion.div>
-                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-tighter">
-                                    Quest Complete! 🎉
-                                </h2>
-                                <p className="text-gray-600 dark:text-gray-400 uppercase text-xs tracking-widest">
-                                    Your data is secured at the guild.
-                                </p>
-                            </div>
+                            <ThankYouScreen
+                                key="thank-you"
+                                userName={leadName || "Adventurer"}
+                                onRestart={handleRestart}
+                            />
                         )}
                     </AnimatePresence>
                 </div>
