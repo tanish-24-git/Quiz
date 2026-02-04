@@ -7,17 +7,17 @@ import RotatingText from './RotatingText';
 
 const ThankYouScreen = ({ userName = "User", onRestart }) => {
     return (
-        <div className="flex flex-col items-center justify-center w-full min-h-screen relative p-4 font-pixel py-4">
+        <div className="flex flex-col items-center justify-center w-full h-full relative font-pixel overflow-hidden">
             <Confetti />
 
             <motion.div
-                className="w-full max-w-lg mx-auto relative z-10"
+                className="w-full h-full sm:h-auto sm:max-w-lg mx-auto relative z-10"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                {/* Pixel Card Container - Golden Ratio Style */}
-                <div className="relative pixel-borders bg-white border-4 border-slate-200 w-full min-h-[100dvh] sm:min-h-[600px] max-h-screen overflow-y-auto shadow-2xl">
+                {/* Pixel Card Container - Golden Ratio Style with height Safeties */}
+                <div className="relative pixel-borders bg-white border-4 border-slate-200 w-full h-full sm:h-auto sm:min-h-[600px] shadow-2xl overflow-hidden">
                     {/* Subtle Grid Background */}
                     <div className="absolute inset-0 pixel-grid-bg-light opacity-10 pointer-events-none" />
 

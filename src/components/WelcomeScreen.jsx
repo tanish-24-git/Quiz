@@ -20,7 +20,7 @@ const WelcomeScreen = ({ onStart }) => {
 
     return (
         <motion.div
-            className="w-full max-w-md mx-auto relative px-4 min-h-screen flex items-center justify-center py-4"
+            className="w-full h-full flex flex-col items-center justify-center sm:p-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
@@ -39,8 +39,8 @@ const WelcomeScreen = ({ onStart }) => {
                 )}
             </AnimatePresence>
 
-            {/* Professional White Card with Pixel Borders */}
-            <div className="relative pixel-borders bg-white border-4 border-slate-200 w-full min-h-[100dvh] sm:min-h-[600px] max-h-screen overflow-y-auto shadow-2xl p-4 sm:p-6 py-4 sm:py-6 flex flex-col justify-between">
+            {/* Professional White Card - Full screen on mobile, Pixel card on Desktop */}
+            <div className="relative pixel-borders bg-white border-4 border-slate-200 w-full h-full sm:h-auto sm:max-w-md sm:min-h-[600px] shadow-2xl p-4 sm:p-6 py-4 sm:py-6 flex flex-col justify-between overflow-hidden">
                 {/* Subtle Grid Background */}
                 <div className="absolute inset-0 pixel-grid-bg-light opacity-10 pointer-events-none" />
 
@@ -58,7 +58,7 @@ const WelcomeScreen = ({ onStart }) => {
                                 <img
                                     src="/bajaj_life.png"
                                     alt="Bajaj Life"
-                                    className="w-12 sm:w-16 h-auto"
+                                    className="w-10 sm:w-16 h-auto"
                                 />
                             </motion.div>
                         </div>
