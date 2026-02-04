@@ -12,15 +12,15 @@ export const calculatePercentage = (score, total) => {
  */
 export const getMotivationalMessage = (percentage) => {
     if (percentage === 100) {
-        return "Perfect Score!  You're a GST expert!";
+        return "Perfect Score! 🎉 You're a GST expert!";
     } else if (percentage >= 80) {
-        return "Excellent Knowledge!  Keep it up!";
+        return "Excellent Knowledge! 🌟 Keep it up!";
     } else if (percentage >= 60) {
-        return "Good Knowledge!  You're on the right track!";
+        return "Good Knowledge! 💪 You're on the right track!";
     } else if (percentage >= 40) {
-        return "Not Bad!  A little more learning needed!";
+        return "Not Bad! 📚 A little more learning needed!";
     } else {
-        return "Keep Learning!  Every expert was once a beginner!";
+        return "Keep Learning! 💡 Every expert was once a beginner!";
     }
 };
 

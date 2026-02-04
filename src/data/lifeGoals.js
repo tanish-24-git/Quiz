@@ -9,49 +9,49 @@ export const lifeGoals = [
     },
     {
         id: 2,
+        name: "Child's Marriage",
+        icon: "Heart",
+        description: "Plan for your child's special day"
+    },
+    {
+        id: 3,
         name: "Retirement Planning",
         icon: "Sunset",
         description: "Enjoy a comfortable retired life"
     },
     {
-        id: 3,
-        name: "Dream House Purchase",
+        id: 4,
+        name: "Buying a Home",
         icon: "Home",
         description: "Own your dream house"
     },
     {
-        id: 4,
-        name: "Marriage Planning",
-        icon: "Heart",
-        description: "Plan for your special day"
-    },
-    {
         id: 5,
-        name: "World Travel",
-        icon: "Plane",
-        description: "Explore destinations around the globe"
-    },
-    {
-        id: 6,
-        name: "Emergency Fund",
+        name: "Building Emergency Fund",
         icon: "Shield",
         description: "Be prepared for unexpected expenses"
     },
     {
-        id: 7,
-        name: "Debt Freedom",
-        icon: "TrendingUp",
-        description: "Become free from financial burdens"
-    },
-    {
-        id: 8,
+        id: 6,
         name: "Starting a Business",
         icon: "Rocket",
         description: "Launch your entrepreneurial journey"
     },
     {
+        id: 7,
+        name: "World Travel",
+        icon: "Plane",
+        description: "Explore destinations around the globe"
+    },
+    {
+        id: 8,
+        name: "Wealth Creation",
+        icon: "TrendingUp",
+        description: "Grow and multiply your assets"
+    },
+    {
         id: 9,
-        name: "Healthcare Security",
+        name: "Health Security",
         icon: "HeartPulse",
         description: "Protect your family's health"
     }
