@@ -48,30 +48,30 @@ const GoalSelectionScreen = ({ onProceed }) => {
 
     return (
         <motion.div
-            className="w-full max-w-5xl mx-auto font-pixel px-4 min-h-screen flex items-center justify-center py-4"
+            className="w-full h-full flex flex-col items-center justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
         >
-            {/* Pixel Card Container - Responsive sizing */}
-            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 w-full min-h-[100dvh] sm:min-h-[700px] max-h-screen overflow-y-auto flex flex-col shadow-2xl">
+            {/* Pixel Card Container - Full Screen Mobile, Centered Card Desktop */}
+            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 w-full h-full sm:h-auto sm:max-w-3xl sm:min-h-[600px] flex flex-col shadow-2xl overflow-hidden">
                 {/* Retro Grid Background */}
                 <div className="absolute inset-0 pixel-grid-bg-light opacity-50 pointer-events-none" />
 
-                <div className="relative z-10 p-4 sm:p-6 flex-1 flex flex-col justify-between h-full">
+                <div className="relative z-10 p-2 sm:p-6 flex-1 flex flex-col justify-between h-full">
                     {/* Header - Compact on Golden Ratio */}
-                    <div className="text-center mb-2 flex-shrink-0">
-                        <h2 className="text-base sm:text-xl text-white mb-2 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)] leading-relaxed">
+                    <div className="text-center mb-1 flex-shrink-0">
+                        <h2 className="text-sm sm:text-xl text-white mb-1 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)] leading-relaxed">
                             SELECT 3 GOALS
                         </h2>
 
                         {/* Selected Counter */}
-                        <div className="flex justify-center gap-2 mt-1">
+                        <div className="flex justify-center gap-1.5 mt-0.5">
                             {[1, 2, 3].map((num) => (
                                 <div
                                     key={num}
-                                    className={`w-7 h-7 sm:w-9 sm:h-9 border-2 flex items-center justify-center text-[10px] sm:text-xs transition-all duration-300 ${selectedGoals.length >= num
+                                    className={`w-6 h-6 sm:w-9 sm:h-9 border-2 flex items-center justify-center text-[9px] sm:text-xs transition-all duration-300 ${selectedGoals.length >= num
                                         ? 'bg-yellow-400 border-yellow-600 text-black shadow-[2px_2px_0_rgba(0,0,0,0.3)]'
                                         : 'bg-slate-800 border-slate-600 text-slate-500'
                                         }`}
@@ -83,7 +83,7 @@ const GoalSelectionScreen = ({ onProceed }) => {
                     </div>
 
                     {/* Goals Grid - Responsive 3x3 */}
-                    <div className="grid grid-cols-3 gap-1.5 sm:gap-3 mb-2 flex-1 content-center">
+                    <div className="grid grid-cols-3 gap-1 sm:gap-3 mb-1 flex-1 content-center">
                         {lifeGoals.map((goal, index) => {
                             const IconComponent = iconMap[goal.icon];
                             const isSelected = selectedGoals.includes(goal.id);
@@ -97,7 +97,7 @@ const GoalSelectionScreen = ({ onProceed }) => {
                                     transition={{ delay: index * 0.05 }}
                                     onClick={() => !isDisabled && toggleGoal(goal.id)}
                                     disabled={isDisabled}
-                                    className={`relative p-1.5 sm:p-2 h-full min-h-[4.5rem] sm:min-h-[5.5rem] flex flex-col items-center justify-center gap-1 transition-all duration-200 pixel-borders-sm ${isSelected
+                                    className={`relative p-1 sm:p-2 h-full min-h-[4rem] sm:min-h-[5.5rem] flex flex-col items-center justify-center gap-0.5 transition-all duration-200 pixel-borders-sm ${isSelected
                                         ? 'bg-gradient-to-br from-green-400 to-green-600 border-green-700 translate-y-1'
                                         : isDisabled
                                             ? 'bg-slate-800 border-slate-700 opacity-50 cursor-not-allowed'
@@ -106,16 +106,16 @@ const GoalSelectionScreen = ({ onProceed }) => {
                                 >
                                     {isSelected && (
                                         <div className="absolute top-0.5 right-0.5">
-                                            <Check className="w-2.5 h-2.5 sm:w-4 sm:h-4 text-white drop-shadow-md" strokeWidth={3} />
+                                            <Check className="w-2 h-2 sm:w-4 sm:h-4 text-white drop-shadow-md" strokeWidth={3} />
                                         </div>
                                     )}
 
-                                    <div className={`p-1 sm:p-1.5 rounded ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-900/50 text-blue-300'
+                                    <div className={`p-0.5 sm:p-1.5 rounded ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-900/50 text-blue-300'
                                         }`}>
-                                        {IconComponent && <IconComponent className="w-3.5 h-3.5 sm:w-5 sm:h-5" />}
+                                        {IconComponent && <IconComponent className="w-3 h-3 sm:w-5 sm:h-5" />}
                                     </div>
 
-                                    <span className={`text-[7px] sm:text-[9px] md:text-[10px] leading-tight uppercase transition-colors ${isSelected ? 'text-white font-bold drop-shadow-sm' : 'text-slate-400'
+                                    <span className={`text-[6px] sm:text-[9px] md:text-[10px] leading-tight uppercase transition-colors ${isSelected ? 'text-white font-bold drop-shadow-sm' : 'text-slate-400'
                                         }`}>
                                         {goal.name}
                                     </span>
@@ -124,11 +124,11 @@ const GoalSelectionScreen = ({ onProceed }) => {
                         })}
                     </div>
 
-                    <div className="w-full">
+                    <div className="w-full pb-2">
                         <PixelButton
                             onClick={handleProceed}
                             variant="neutral"
-                            className={`w-full py-3 !text-[10px] sm:!text-xs font-bold uppercase tracking-widest transition-all duration-200 whitespace-nowrap
+                            className={`w-full py-2.5 !text-[9px] sm:!text-xs font-bold uppercase tracking-widest transition-all duration-200 whitespace-nowrap
                                 ${selectedGoals.length === 3
                                     ? 'bg-brand-orange text-white hover:bg-orange-600 shadow-[4px_4px_0_rgba(0,0,0,0.5)] border-2 border-white translate-x-0 translate-y-0 active:translate-x-1 active:translate-y-1 active:shadow-none'
                                     : 'bg-slate-700 text-slate-400 border-2 border-slate-600 opacity-50 cursor-not-allowed'

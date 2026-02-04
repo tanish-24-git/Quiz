@@ -84,14 +84,14 @@ const GoalAssessmentScreen = ({
     return (
         <motion.div
             key={`${currentGoal.id}-${currentQuestionIndex}`}
-            className="w-full mx-auto px-2 sm:px-4 font-pixel min-h-screen flex flex-col items-center justify-center py-4"
+            className="w-full h-full flex flex-col items-center justify-center font-pixel sm:p-4"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.4 }}
         >
-            {/* Main Pixel Container - Light Blue Theme with Golden Ratio proportions */}
-            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 w-full max-w-[700px] min-h-[100dvh] sm:min-h-[600px] max-h-screen overflow-y-auto flex flex-col shadow-2xl transition-all duration-300">
+            {/* Main Pixel Container - Full Screen Mobile, Centered Card Desktop */}
+            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 w-full h-full sm:h-auto sm:max-w-[700px] sm:min-h-[600px] flex flex-col shadow-2xl transition-all duration-300 overflow-hidden">
 
                 {/* Retro Grid Background - Subtle White */}
                 <div className="absolute inset-0 pixel-grid-bg-light opacity-30 pointer-events-none" />

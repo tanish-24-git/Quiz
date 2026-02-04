@@ -50,18 +50,18 @@ const ScoreResultsScreen = ({ score, selectedGoals, onBookSlot, onRestart }) => 
 
     return (
         <div 
-            className="w-full max-w-md mx-auto min-h-[100dvh] sm:min-h-[600px] max-h-screen overflow-y-auto shadow-2xl relative font-sans text-white border-4 border-white/20 pixel-grid-bg-blue"
+            className="w-full h-full sm:h-auto sm:max-w-md sm:min-h-[600px] shadow-2xl relative font-sans text-white border-4 border-white/20 pixel-grid-bg-blue overflow-hidden"
         >
             <Confetti />
 
             {/* Content */}
-            <div className="px-6 pt-4 pb-2 text-center relative z-10">
+            <div className="px-6 pt-2 pb-1 text-center relative z-10">
                 
                 {/* Speedometer Gauge */}
-                <div className="relative mx-auto flex items-center justify-center mb-0 mt-2">
+                <div className="relative mx-auto flex items-center justify-center mb-0 mt-1 scale-90 sm:scale-100">
                      <Speedometer score={Math.round(score)} />
                 </div>
-                <div className="text-2xl font-bold mb-4 -mt-4 text-white">{Math.round(score)}%</div>
+                <div className="text-xl font-bold mb-2 -mt-3 text-white">{Math.round(score)}%</div>
 
                 <h1 className="text-xl font-bold mb-1 text-white">Congratulations!</h1>
                 <p className="text-blue-50 text-[10px] sm:text-xs font-medium mb-4">You've just aced the quiz!</p>

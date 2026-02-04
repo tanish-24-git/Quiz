@@ -85,21 +85,14 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300">
+        <div className="h-[100dvh] w-full flex flex-col font-sans transition-colors duration-300 pixel-grid-bg-blue overflow-hidden">
             {/* Main Content */}
-            <main className="flex-1 flex items-center justify-center p-2 sm:p-4">
-                <div
-                    className="w-full"
-                    style={{
-                        maxWidth: 'min(900px, 100%)',
-                    }}
-                >
-                    <AnimatePresence mode="wait">
-                        <Suspense fallback={<div className="flex items-center justify-center h-full"></div>}>
-                            {renderScreen()}
-                        </Suspense>
-                    </AnimatePresence>
-                </div>
+            <main className="flex-1 flex flex-col items-center justify-center p-0 overflow-hidden relative">
+                <AnimatePresence mode="wait">
+                    <Suspense fallback={null}>
+                        {renderScreen()}
+                    </Suspense>
+                </AnimatePresence>
             </main>
 
             {/* Success Toast Notification */}
