@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import { assessmentQuestions } from '../data/lifeGoals';
 import PixelProgressBar from './PixelProgressBar';
@@ -78,6 +78,18 @@ const GoalAssessmentScreen = ({
                 
                 {/* Scanline Effect - Subtle */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5 bg-[length:100%_4px] pointer-events-none z-10 opacity-10" />
+
+                {/* Feedback Flash Overlay */}
+                <AnimatePresence>
+                    {flash && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.3 }}
+                            exit={{ opacity: 0 }}
+                            className={`absolute inset-0 z-50 pointer-events-none ${flash === 'correct' ? 'bg-green-400' : 'bg-red-500'}`}
+                        />
+                    )}
+                </AnimatePresence>
 
                 {/* --- HEADER SECTION (~15%) --- */}
                 <div className="relative z-20 p-4 sm:p-6 flex justify-between items-start">
