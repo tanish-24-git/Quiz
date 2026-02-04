@@ -82,7 +82,7 @@ const WelcomeScreen = ({ onStart }) => {
                             animate={isTransitioning ? { scale: [1, 1.2, 1], filter: ['blur(0px)', 'blur(4px)', 'blur(0px)'] } : { opacity: [0.6, 1, 0.6] }}
                             transition={{ duration: isTransitioning ? 0.3 : 2, repeat: isTransitioning ? 0 : Infinity }}
                         >
-                            ARE YOU READY, ADVENTURER?
+                            ARE YOU READY?
                         </motion.p>
                     </div>
 
