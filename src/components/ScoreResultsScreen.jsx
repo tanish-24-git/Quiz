@@ -7,14 +7,14 @@ import RetroReward from './RetroReward';
 import PixelButton from './PixelButton';
 import { useSound } from '../hooks/useSound';
 
-const ScoreResultsScreen = ({ 
-    score, 
-    selectedGoals, 
-    onCallNow, 
+const ScoreResultsScreen = ({
+    score,
+    selectedGoals,
+    onCallNow,
     onBookSlot,
-    onTalkToExpert 
+    onTalkToExpert
 }) => {
-    const percentage = Math.round((score / 9) * 100);
+    const percentage = Math.round((score / 999) * 100);
     const { playSound } = useSound();
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const ScoreResultsScreen = ({
         }, 500);
         return () => clearTimeout(timer);
     }, []);
-    
+
     // Determine detailed message based on score
     const getScoreMessage = () => {
         if (percentage >= 80) return "Master Strategist! Your future is secure!";
@@ -43,7 +43,7 @@ const ScoreResultsScreen = ({
 
             {/* Pixel Card Container */}
             <div className="relative pixel-borders bg-slate-900 border-4 border-slate-700 overflow-hidden">
-                
+
                 {/* Header / Victory Scene */}
                 <div className="relative bg-sky-600 p-0 pb-12 overflow-visible">
                     {/* Retro Reward with Spinning Background */}
@@ -52,7 +52,7 @@ const ScoreResultsScreen = ({
 
                 {/* Content Area - Professional/White Theme */}
                 <CardContent className="p-6 relative z-10 -mt-8 bg-white border-t-4 border-slate-900 mx-4 mb-4 shadow-lg rounded-b-lg font-sans">
-                    
+
                     {/* Message Box */}
                     <div className="bg-blue-50 border border-blue-100 p-4 mb-6 rounded-lg text-center shadow-sm">
                         <p className="text-sm sm:text-base text-gray-800 leading-relaxed font-medium">
@@ -67,7 +67,7 @@ const ScoreResultsScreen = ({
                         </p>
                         <div className="flex flex-wrap justify-center gap-3">
                             {selectedGoals.map((goal, i) => (
-                                <motion.div 
+                                <motion.div
                                     key={goal.id}
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
@@ -92,14 +92,14 @@ const ScoreResultsScreen = ({
 
                         <div className="grid grid-cols-2 gap-4">
                             <button
-                                 onClick={onCallNow}
+                                onClick={onCallNow}
                                 className="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-lg text-sm font-bold transition-colors border border-slate-200"
                             >
                                 <Phone className="w-4 h-4" /> CALL
                             </button>
-                            
+
                             <button
-                                 onClick={onBookSlot}
+                                onClick={onBookSlot}
                                 className="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-lg text-sm font-bold transition-colors border border-slate-200"
                             >
                                 <Calendar className="w-4 h-4" /> BOOK

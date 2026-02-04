@@ -6,24 +6,24 @@ import PixelButton from './PixelButton';
 import ParticleEffect from './ParticleEffect';
 import { Heart, Timer } from "lucide-react";
 
-const GoalAssessmentScreen = ({ 
-    currentGoal, 
-    currentGoalIndex, 
-    currentQuestionIndex, 
+const GoalAssessmentScreen = ({
+    currentGoal,
+    currentGoalIndex,
+    currentQuestionIndex,
     onAnswer,
-    totalGoals = 3 
+    totalGoals = 3
 }) => {
     const [particles, setParticles] = useState([]);
     const [timeLeft, setTimeLeft] = useState(5);
     const timerRef = useRef(null);
-    
+
     const currentQuestion = assessmentQuestions[currentQuestionIndex];
     const overallProgress = (currentGoalIndex * 3 + currentQuestionIndex + 1) / 9;
 
     // Timer Logic
     useEffect(() => {
-        setTimeLeft(5); 
-        
+        setTimeLeft(30);
+
         timerRef.current = setInterval(() => {
             setTimeLeft(prev => {
                 if (prev <= 1) {
@@ -40,22 +40,21 @@ const GoalAssessmentScreen = ({
 
     const handleAnswer = (answer, event) => {
         clearInterval(timerRef.current);
-        
+
         const rect = event.currentTarget.getBoundingClientRect();
         const x = rect.left + rect.width / 2;
         const y = rect.top + rect.height / 2;
-        
+
         const particleId = Date.now();
-        // Use Orange for Yes, Light Blue/White for No? Or stick to standard green/red for clarity?
-        // Let's use Brand Orange for Yes to match theme.
-        const color = answer ? '#ff7900' : '#ffffff'; 
-        
+        // Use Orange for No, White for Yes (Inverted per request)
+        const color = answer ? '#ffffff' : '#ff7900';
+
         setParticles(prev => [...prev, { id: particleId, x, y, color }]);
-        
+
         setTimeout(() => {
             setParticles(prev => prev.filter(p => p.id !== particleId));
         }, 800);
-        
+
         setTimeout(() => {
             onAnswer(answer);
         }, 200);
@@ -72,10 +71,10 @@ const GoalAssessmentScreen = ({
         >
             {/* Main Pixel Container - Light Blue Theme with Golden Ratio proportions */}
             <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full max-w-[700px] aspect-[1/1.618] sm:aspect-auto sm:min-h-[600px] flex flex-col shadow-2xl transition-all duration-300">
-                
+
                 {/* Retro Grid Background - Subtle White */}
                 <div className="absolute inset-0 pixel-grid-bg-light opacity-30 pointer-events-none" />
-                
+
                 {/* Scanline Effect - Subtle */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5 bg-[length:100%_4px] pointer-events-none z-10 opacity-10" />
 
@@ -83,22 +82,22 @@ const GoalAssessmentScreen = ({
                 <div className="relative z-20 p-4 sm:p-6 flex justify-between items-start">
                     <div className="text-white text-[10px] sm:text-xs tracking-widest drop-shadow-md">
                         <div className="mb-1 opacity-80 font-bold">LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}</div>
-                        <div className="text-white font-bold">XP: {Math.floor(overallProgress * 10000)}</div>
+                        <div className="text-white font-bold">XP: {Math.floor(overallProgress * 1000)}</div>
                     </div>
 
                     {/* Timer Gauge */}
                     <div className="flex flex-col items-end gap-1.5">
                         <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-2 py-0.5 sm:px-3 sm:py-1 border-2 border-white/40 pixel-borders-sm">
-                            <Timer className={`w-3.5 h-3.5 ${timeLeft <= 2 ? 'text-red-400 animate-bounce' : 'text-brand-orange'}`} />
-                            <span className={`text-xs sm:text-sm font-bold ${timeLeft <= 2 ? 'text-red-400' : 'text-white'}`}>
-                                0{timeLeft}s
+                            <Timer className={`w-3.5 h-3.5 ${timeLeft <= 5 ? 'text-red-400 animate-bounce' : 'text-brand-orange'}`} />
+                            <span className={`text-xs sm:text-sm font-bold ${timeLeft <= 5 ? 'text-red-400' : 'text-white'}`}>
+                                {timeLeft < 10 ? `0${timeLeft}` : timeLeft}s
                             </span>
                         </div>
                         <div className="w-16 sm:w-24 h-1.5 sm:h-2 bg-sky-900/30 border-2 border-sky-900/50 overflow-hidden">
-                            <motion.div 
-                                className={`h-full ${timeLeft <= 2 ? 'bg-red-500' : 'bg-brand-orange'}`}
+                            <motion.div
+                                className={`h-full ${timeLeft <= 5 ? 'bg-red-500' : 'bg-brand-orange'}`}
                                 initial={{ width: "100%" }}
-                                animate={{ width: `${(timeLeft / 5) * 100}%` }}
+                                animate={{ width: `${(timeLeft / 30) * 100}%` }}
                                 transition={{ duration: 1, ease: "linear" }}
                             />
                         </div>
@@ -114,7 +113,7 @@ const GoalAssessmentScreen = ({
                 <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-4 sm:p-6 text-center">
                     <div className="space-y-4 sm:space-y-6 max-w-[90%]">
                         {/* Question Text - Scaled for screens */}
-                        <motion.h2 
+                        <motion.h2
                             className="text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white leading-relaxed drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)] uppercase tracking-tight"
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
@@ -138,15 +137,15 @@ const GoalAssessmentScreen = ({
                 <div className="relative z-20 p-4 sm:p-8 flex flex-col items-center gap-6 sm:gap-8">
                     {/* Pixel Buttons - Responsive Gap */}
                     <div className="flex justify-center gap-4 sm:gap-8 w-full max-w-sm">
-                        <PixelButton 
-                            onClick={(e) => handleAnswer(true, e)} 
-                            className="bg-brand-orange hover:bg-orange-600 text-white shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4"
+                        <PixelButton
+                            onClick={(e) => handleAnswer(true, e)}
+                            className="bg-white hover:bg-slate-100 !text-brand-orange shadow-[0_4px_0_#cbd5e1] text-sm sm:text-lg py-3 sm:py-4"
                         >
                             YES
                         </PixelButton>
-                        <PixelButton 
-                            onClick={(e) => handleAnswer(false, e)} 
-                            className="bg-white hover:bg-slate-100 !text-sky-900 shadow-[0_4px_0_#cbd5e1] text-sm sm:text-lg py-3 sm:py-4"
+                        <PixelButton
+                            onClick={(e) => handleAnswer(false, e)}
+                            className="bg-brand-orange text-white hover:text-white shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4"
                         >
                             NO
                         </PixelButton>
@@ -155,9 +154,9 @@ const GoalAssessmentScreen = ({
                     {/* Footer Lives - Compact on Mobile */}
                     <div className="flex justify-center gap-1.5 sm:gap-2 text-white">
                         {[0, 1, 2].map(idx => (
-                            <Heart 
-                                key={idx} 
-                                className={`w-5 h-5 sm:w-6 sm:h-6 ${idx < 3 - currentQuestionIndex ? 'fill-white' : 'opacity-30'}`} 
+                            <Heart
+                                key={idx}
+                                className={`w-5 h-5 sm:w-6 sm:h-6 ${idx < 3 - currentQuestionIndex ? 'fill-white' : 'opacity-30'}`}
                             />
                         ))}
                     </div>
@@ -171,7 +170,7 @@ const GoalAssessmentScreen = ({
                     x={particle.x}
                     y={particle.y}
                     color={particle.color}
-                    onComplete={() => {}}
+                    onComplete={() => { }}
                 />
             ))}
         </motion.div>
