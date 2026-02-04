@@ -84,20 +84,15 @@ const GoalAssessmentScreen = ({
     return (
         <motion.div
             key={`${currentGoal.id}-${currentQuestionIndex}`}
-            className="w-full h-full flex flex-col items-center justify-center font-pixel sm:p-4"
+            className="w-full h-full flex flex-col items-center justify-center font-pixel"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.4 }}
         >
             {/* Main Pixel Container - Full Screen Mobile, Centered Card Desktop */}
-            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 w-full h-full sm:h-auto sm:max-w-[700px] sm:min-h-[600px] flex flex-col shadow-2xl transition-all duration-300 overflow-hidden">
+            <div className="relative sm:pixel-borders bg-sky-600 sm:border-4 sm:border-sky-800 w-full h-full sm:h-auto sm:max-w-[700px] sm:min-h-[600px] flex flex-col sm:shadow-2xl transition-all duration-300 overflow-hidden">
 
-                {/* Retro Grid Background - Subtle White */}
-                <div className="absolute inset-0 pixel-grid-bg-light opacity-30 pointer-events-none" />
-
-                {/* Scanline Effect - Subtle */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5 bg-[length:100%_4px] pointer-events-none z-10 opacity-10" />
 
                 {/* Feedback Flash Overlay */}
                 <AnimatePresence>

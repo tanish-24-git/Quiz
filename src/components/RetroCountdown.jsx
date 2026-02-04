@@ -37,12 +37,6 @@ const RetroCountdown = ({ onComplete }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-white font-pixel overflow-hidden">
-            {/* Retro Grid Background - Very subtle gray to visible on white */}
-            <div className="absolute inset-0 pixel-grid-bg opacity-5 pointer-events-none" />
-            
-            {/* Scanline - Subtle Light */}
-            <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0)_50%,rgba(0,0,0,0.02)_50%,rgba(0,0,0,0.02))] bg-[size:100%_4px]" />
-
             <div className="relative flex items-center justify-center w-full h-full">
                 {/* Crosshair / Circle Interface - All Orange Theme */}
                 <motion.div 
