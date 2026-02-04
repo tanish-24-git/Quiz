@@ -14,10 +14,13 @@ const GoalAssessmentScreen = ({
     score
 }) => {
     const [particles, setParticles] = useState([]);
-    const [timeLeft, setTimeLeft] = useState(5);
+    const [timeLeft, setTimeLeft] = useState(30);
+    const [isAnswering, setIsAnswering] = useState(false);
     const timerRef = useRef(null);
 
     const currentQuestion = assessmentQuestions[currentQuestionIndex];
+    if (!currentQuestion || !currentGoal) return null;
+
     const overallProgress = (currentGoalIndex * 3 + currentQuestionIndex + 1) / 9;
 
     // Calculate stars from score (111 points per correct answer)
@@ -25,7 +28,10 @@ const GoalAssessmentScreen = ({
 
     // Timer Logic
     useEffect(() => {
+        // Reset answering state on new question
+        setIsAnswering(false);
         setTimeLeft(30);
+
         const timerCallback = () => {
             setTimeLeft(prev => {
                 if (prev <= 1) {
@@ -42,14 +48,16 @@ const GoalAssessmentScreen = ({
 
     // Handle Time Out separately to avoid side-effects in render/state-update phase
     useEffect(() => {
-        if (timeLeft === 0) {
+        if (timeLeft === 0 && !isAnswering) {
             clearInterval(timerRef.current);
-            // Ensure we only call this once per question
+            setIsAnswering(true);
             onAnswer(false);
         }
-    }, [timeLeft, onAnswer]);
+    }, [timeLeft, onAnswer, isAnswering]);
 
     const handleAnswer = (answer, event) => {
+        if (isAnswering) return;
+        setIsAnswering(true);
         clearInterval(timerRef.current);
 
         const rect = event.currentTarget.getBoundingClientRect();

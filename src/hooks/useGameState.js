@@ -175,7 +175,7 @@ export const useGameState = () => {
             stopGameTimer();
             handleEndOfGame();
         }
-    }, [currentQuestionIndex, currentGoalIndex, playSound, handleEndOfGame, stopGameTimer, currentQuestionIndex]);
+    }, [currentQuestionIndex, currentGoalIndex, playSound, handleEndOfGame, stopGameTimer]);
 
 
     const handleCallNow = () => window.location.href = 'tel:+911800209999';
