@@ -122,13 +122,19 @@ const GoalAssessmentScreen = ({
                         <div className="mb-1 opacity-80 font-bold">LVL {currentGoalIndex + 1}-{currentQuestionIndex + 1}</div>
 
                         {/* Star Display */}
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 mb-1">
                             <span className="text-white font-bold text-[10px] sm:text-xs">XP:</span>
                             <div className="flex gap-1">
                                 {Array.from({ length: starCount }).map((_, i) => (
                                     <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 text-white fill-white" />
                                 ))}
                             </div>
+                        </div>
+
+                        {/* Numeric Score */}
+                        <div className="flex items-center gap-2 bg-black/20 px-2 py-1 rounded border border-white/10 w-fit">
+                            <span className="text-brand-orange text-[10px] font-bold">SCORE</span>
+                            <span className="text-white text-[10px] font-pixel tracking-widest">{score.toString().padStart(5, '0')}</span>
                         </div>
                     </div>
 

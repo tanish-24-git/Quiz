@@ -4,6 +4,7 @@ import { useSound } from './useSound';
 export const SCREENS = {
     WELCOME: 'welcome',
     GOAL_SELECTION: 'goal_selection',
+    COUNTDOWN: 'countdown',
 
     ASSESSMENT: 'assessment',
     SCORE_RESULTS: 'score_results',
@@ -68,6 +69,10 @@ export const useGameState = () => {
 
     const handleGoalsSelected = useCallback((goals) => {
         setSelectedGoals(goals);
+        setCurrentScreen(SCREENS.COUNTDOWN);
+    }, []);
+
+    const startAssessment = useCallback(() => {
         setCurrentGoalIndex(0);
         setCurrentQuestionIndex(0);
         setCurrentScreen(SCREENS.ASSESSMENT);
@@ -238,6 +243,7 @@ export const useGameState = () => {
         setShowSuccessToast,
         startGame,
         handleGoalsSelected,
+        startAssessment,
 
         advanceGame,
         handleCallNow,

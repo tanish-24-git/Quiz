@@ -12,6 +12,7 @@ const ScoreResultsScreen = lazy(() => import('./components/ScoreResultsScreen'))
 const BookingScreen = lazy(() => import('./components/BookingScreen'));
 const LeadCaptureForm = lazy(() => import('./components/LeadCaptureForm'));
 const ThankYouScreen = lazy(() => import('./components/ThankYouScreen'));
+const RetroCountdown = lazy(() => import('./components/RetroCountdown'));
 
 function App() {
     const {
@@ -27,6 +28,7 @@ function App() {
         setShowSuccessToast,
         startGame,
         handleGoalsSelected,
+        startAssessment,
 
         advanceGame,
         handleCallNow,
@@ -45,6 +47,8 @@ function App() {
                 return <WelcomeScreen key="welcome" onStart={startGame} />;
             case SCREENS.GOAL_SELECTION:
                 return <GoalSelectionScreen key="goal-selection" onProceed={handleGoalsSelected} />;
+            case SCREENS.COUNTDOWN:
+                return <RetroCountdown key="countdown" onComplete={startAssessment} />;
             case SCREENS.ASSESSMENT:
                 return selectedGoals.length > 0 && (
                     <GoalAssessmentScreen
