@@ -239,7 +239,7 @@ const WelcomeScreen = ({ onStart }) => {
                       )}
                     </AnimatePresence>
                     
-                    {/* Character Video Container */}
+                    {/* Character Video/GIF Container */}
                     <div 
                       className={`relative w-20 h-24 sm:w-24 sm:h-28 overflow-hidden rounded-lg transition-all duration-300 ${
                         isSelected 
@@ -250,7 +250,7 @@ const WelcomeScreen = ({ onStart }) => {
                       <video
                         ref={(el) => (videoRefs.current[char.id] = el)}
                         key={`${char.id}-${scene}`}
-                        src={`/assets/characters/${char.folder}/${scene}.mp4`}
+                        src={`/assets/characters/${char.folder}/${scene}.webm`}
                         autoPlay
                         loop
                         muted
