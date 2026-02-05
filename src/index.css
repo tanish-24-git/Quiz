@@ -1,329 +1,378 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    :root {
-        /* ... existing vars ... */
-        /* Bajaj Life Insurance Brand Colors - Exact Match */
-        --background: 0 0% 98%;
-        /* Light gray/white background */
-        --foreground: 220 13% 18%;
-        /* #2D3748 - Charcoal */
+  :root {
+    /* ... existing vars ... */
+    /* Bajaj Life Insurance Brand Colors - Exact Match */
+    --background: 0 0% 98%;
+    /* Light gray/white background */
+    --foreground: 220 13% 18%;
+    /* #2D3748 - Charcoal */
 
-        --card: 0 0% 100%;
-        /* Pure white for cards */
-        --card-foreground: 220 13% 18%;
+    --card: 0 0% 100%;
+    /* Pure white for cards */
+    --card-foreground: 220 13% 18%;
 
-        --popover: 0 0% 100%;
-        --popover-foreground: 220 13% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 18%;
 
-        --primary: 207 100% 35%;
-        /* #0066B2 - Bajaj Blue */
-        --primary-foreground: 0 0% 100%;
+    --primary: 207 100% 35%;
+    /* #0066B2 - Bajaj Blue */
+    --primary-foreground: 0 0% 100%;
 
-        --secondary: 0 0% 96%;
-        --secondary-foreground: 220 13% 18%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 220 13% 18%;
 
-        --muted: 0 0% 94%;
-        --muted-foreground: 220 9% 46%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 220 9% 46%;
 
-        --accent: 0 0% 92%;
-        --accent-foreground: 220 13% 18%;
+    --accent: 0 0% 92%;
+    --accent-foreground: 220 13% 18%;
 
-        --destructive: 0 65% 55%;
-        --destructive-foreground: 0 0% 100%;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-        --border: 220 13% 85%;
-        /* #D4D8DD - Soft gray border */
-        --input: 220 13% 85%;
-        --ring: 207 100% 35%;
+    --border: 220 13% 85%;
+    /* #D4D8DD - Soft gray border */
+    --input: 220 13% 85%;
+    --ring: 207 100% 35%;
 
-        --radius: 0.375rem;
-        /* Sharp edges - minimal rounding */
+    --radius: 0.375rem;
+    /* Sharp edges - minimal rounding */
 
-        /* Bajaj Brand Colors - Exact */
-        --charcoal: #2D3748;
-        --cream: #FFFFFF;
-        --soft-gray: #E2E8F0;
-        --bajaj-blue: #0066B2;
-        /* Exact Bajaj Blue */
-        --bajaj-orange: #FF6600;
-        /* Exact Bajaj Orange */
+    /* Bajaj Brand Colors - Exact */
+    --charcoal: #2d3748;
+    --cream: #ffffff;
+    --soft-gray: #e2e8f0;
+    --bajaj-blue: #0066b2;
+    /* Exact Bajaj Blue */
+    --bajaj-orange: #ff6600;
+    /* Exact Bajaj Orange */
 
-        /* Golden Ratio Variables */
-        --phi: 1.618;
-        --phi-inverse: 0.618;
-        
-        /* Fibonacci Spacing Scale (based on golden ratio) */
-        --space-xs: 8px;
-        --space-sm: 13px;
-        --space-md: 21px;
-        --space-lg: 34px;
-        --space-xl: 55px;
-        --space-2xl: 89px;
+    /* Golden Ratio Variables */
+    --phi: 1.618;
+    --phi-inverse: 0.618;
 
-        /* Wooden Game UI Colors */
-        --wood-dark: #5c4033;
-        --wood-md: #8b6f47;
-        --wood-light: #a68a64;
-        --wood-border: #4a3526;
-        --wood-highlight: #c9a97a;
-        
-        /* Game UI Colors */
-        --game-green: #7ed321;
-        --game-green-dark: #5fb304;
-        --game-cyan: #4ecdc4;
-        --game-cyan-dark: #2fb3aa;
-        --game-red: #e74c3c;
-        --game-yellow: #f1c40f;
-        
-        /* Pixel Art Colors */
-        --pixel-blue: #0066B2;
-        --pixel-blue-dark: #004d88;
-        --pixel-blue-light: #4dabf7;
-        --pixel-white: #ffffff;
-        --pixel-gold: #fbbf24;
-    }
+    /* Fibonacci Spacing Scale (based on golden ratio) */
+    --space-xs: 8px;
+    --space-sm: 13px;
+    --space-md: 21px;
+    --space-lg: 34px;
+    --space-xl: 55px;
+    --space-2xl: 89px;
 
-    .dark {
-        /* Dark mode - keeping wellness aesthetic */
-        --background: 220 13% 12%;
-        --foreground: 0 0% 95%;
+    /* Wooden Game UI Colors */
+    --wood-dark: #5c4033;
+    --wood-md: #8b6f47;
+    --wood-light: #a68a64;
+    --wood-border: #4a3526;
+    --wood-highlight: #c9a97a;
 
-        --card: 220 13% 14%;
-        --card-foreground: 0 0% 95%;
+    /* Game UI Colors */
+    --game-green: #7ed321;
+    --game-green-dark: #5fb304;
+    --game-cyan: #4ecdc4;
+    --game-cyan-dark: #2fb3aa;
+    --game-red: #e74c3c;
+    --game-yellow: #f1c40f;
 
-        --popover: 220 13% 14%;
-        --popover-foreground: 0 0% 95%;
+    /* Pixel Art Colors */
+    --pixel-blue: #0066b2;
+    --pixel-blue-dark: #004d88;
+    --pixel-blue-light: #4dabf7;
+    --pixel-white: #ffffff;
+    --pixel-gold: #fbbf24;
+  }
 
-        --primary: 207 100% 45%;
-        --primary-foreground: 220 13% 10%;
+  .dark {
+    /* Dark mode - keeping wellness aesthetic */
+    --background: 220 13% 12%;
+    --foreground: 0 0% 95%;
 
-        --secondary: 220 13% 18%;
-        --secondary-foreground: 0 0% 95%;
+    --card: 220 13% 14%;
+    --card-foreground: 0 0% 95%;
 
-        --muted: 220 13% 20%;
-        --muted-foreground: 0 0% 65%;
+    --popover: 220 13% 14%;
+    --popover-foreground: 0 0% 95%;
 
-        --accent: 220 13% 18%;
-        --accent-foreground: 0 0% 95%;
+    --primary: 207 100% 45%;
+    --primary-foreground: 220 13% 10%;
 
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 95%;
+    --secondary: 220 13% 18%;
+    --secondary-foreground: 0 0% 95%;
 
-        --border: 220 13% 25%;
-        --input: 220 13% 25%;
-        --ring: 0 0% 70%;
-    }
+    --muted: 220 13% 20%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 220 13% 18%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 95%;
+
+    --border: 220 13% 25%;
+    --input: 220 13% 25%;
+    --ring: 0 0% 70%;
+  }
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
+  * {
+    @apply border-border;
+  }
 
-    body {
-        @apply bg-background text-foreground;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
+  body {
+    @apply bg-background text-foreground;
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+  }
 }
 
 /* Pixel Art Utilities */
 @layer components {
-    .font-pixel {
-        font-family: 'Press Start 2P', cursive;
-    }
+  .font-pixel {
+    font-family: "Press Start 2P", cursive;
+  }
 
-    .pixel-borders {
-        box-shadow: 
-            -4px 0 0 0 var(--charcoal),
-            4px 0 0 0 var(--charcoal),
-            0 -4px 0 0 var(--charcoal),
-            0 4px 0 0 var(--charcoal);
-        margin: 4px;
-    }
+  .pixel-borders {
+    box-shadow:
+      -4px 0 0 0 var(--charcoal),
+      4px 0 0 0 var(--charcoal),
+      0 -4px 0 0 var(--charcoal),
+      0 4px 0 0 var(--charcoal);
+    margin: 4px;
+  }
 
-    .pixel-borders-sm {
-        box-shadow: 
-            -2px 0 0 0 var(--charcoal),
-            2px 0 0 0 var(--charcoal),
-            0 -2px 0 0 var(--charcoal),
-            0 2px 0 0 var(--charcoal);
-        margin: 2px;
-    }
+  .pixel-borders-sm {
+    box-shadow:
+      -2px 0 0 0 var(--charcoal),
+      2px 0 0 0 var(--charcoal),
+      0 -2px 0 0 var(--charcoal),
+      0 2px 0 0 var(--charcoal);
+    margin: 2px;
+  }
 
-    .pixel-grid-bg {
-        background-color: #2D3748;
-        background-image: 
-            linear-gradient(#1a202c 1px, transparent 1px),
-            linear-gradient(90deg, #1a202c 1px, transparent 1px);
-        background-size: 20px 20px;
-    }
-    
-    .pixel-grid-bg-light {
-        background-color: #0284c7; /* Sky 600 - Darker Blue for better contrast */
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-        background-size: 32px 32px;
-    }
+  .pixel-grid-bg {
+    background-color: #2d3748;
+    background-image:
+      linear-gradient(#1a202c 1px, transparent 1px),
+      linear-gradient(90deg, #1a202c 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
 
-    .pixel-grid-bg-blue {
-        background-color: var(--pixel-blue);
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-        background-size: 30px 30px;
-    }
+  .pixel-grid-bg-light {
+    background-color: #0284c7; /* Sky 600 - Darker Blue for better contrast */
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .pixel-grid-bg-blue {
+    background-color: var(--pixel-blue);
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
 }
 
 /* Bajaj Brand Button Styles - Sharp Edges */
 @layer components {
-    .btn-wellness {
-        @apply rounded-md border border-soft-gray bg-white text-charcoal;
-        @apply px-6 py-3 font-medium transition-all duration-200;
-        @apply shadow-sm hover:shadow-md hover:bg-gray-50;
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
+  .btn-wellness {
+    @apply rounded-md border border-soft-gray bg-white text-charcoal;
+    @apply px-6 py-3 font-medium transition-all duration-200;
+    @apply shadow-sm hover:shadow-md hover:bg-gray-50;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
 
-    .btn-wellness:active,
-    .btn-wellness[data-selected="true"] {
-        @apply bg-gray-100 border-gray-400;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+  .btn-wellness:active,
+  .btn-wellness[data-selected="true"] {
+    @apply bg-gray-100 border-gray-400;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-    .btn-wellness-primary {
-        @apply rounded-md bg-[#0066B2] text-white;
-        @apply px-6 py-3 font-medium transition-all duration-200;
-        @apply shadow-sm hover:shadow-md hover:brightness-95;
-    }
+  .btn-wellness-primary {
+    @apply rounded-md bg-[#0066B2] text-white;
+    @apply px-6 py-3 font-medium transition-all duration-200;
+    @apply shadow-sm hover:shadow-md hover:brightness-95;
+  }
 
-    .btn-wellness-cta {
-        @apply rounded-md bg-[#FF6600] text-white;
-        @apply px-6 py-3 font-semibold transition-all duration-200;
-        @apply shadow-md hover:shadow-lg hover:brightness-95;
-    }
+  .btn-wellness-cta {
+    @apply rounded-md bg-[#FF6600] text-white;
+    @apply px-6 py-3 font-semibold transition-all duration-200;
+    @apply shadow-md hover:shadow-lg hover:brightness-95;
+  }
 }
-
 
 /* Custom transitions */
 .page-transition-enter {
-    opacity: 0;
-    transform: translateY(10px);
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 .page-transition-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 300ms, transform 300ms;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 300ms,
+    transform 300ms;
 }
 
 .page-transition-exit {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .page-transition-exit-active {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 300ms, transform 300ms;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 300ms,
+    transform 300ms;
 }
 
 /* Gaming Animations */
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px) rotate(-1deg); }
-    75% { transform: translateX(4px) rotate(1deg); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px) rotate(-1deg);
+  }
+  75% {
+    transform: translateX(4px) rotate(1deg);
+  }
 }
 
 @keyframes bounce-in {
-    0% { transform: scale(0.3); opacity: 0; }
-    50% { transform: scale(1.05); }
-    70% { transform: scale(0.9); }
-    100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 10px rgba(126, 211, 33, 0.5); }
-    50% { box-shadow: 0 0 20px rgba(126, 211, 33, 0.8); }
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(126, 211, 33, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(126, 211, 33, 0.8);
+  }
 }
 
 @keyframes slide-fill {
-    from { width: 0%; }
-    to { width: var(--target-width); }
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--target-width);
+  }
 }
 
 @keyframes particle-burst {
-    0% { 
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-    }
-    100% { 
-        transform: translate(var(--tx), var(--ty)) scale(0);
-        opacity: 0;
-    }
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(0);
+    opacity: 0;
+  }
 }
 
 @keyframes wood-shine {
-    0% { background-position: -200% center; }
-    100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 /* Wooden Texture Utilities */
 .wood-texture {
-    background: linear-gradient(135deg, 
-        var(--wood-dark) 0%, 
-        var(--wood-md) 25%, 
-        var(--wood-light) 50%, 
-        var(--wood-md) 75%, 
-        var(--wood-dark) 100%
-    );
-    position: relative;
+  background: linear-gradient(
+    135deg,
+    var(--wood-dark) 0%,
+    var(--wood-md) 25%,
+    var(--wood-light) 50%,
+    var(--wood-md) 75%,
+    var(--wood-dark) 100%
+  );
+  position: relative;
 }
 
 .wood-texture::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 3px,
-        rgba(0, 0, 0, 0.03) 3px,
-        rgba(0, 0, 0, 0.03) 6px
-    );
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.03) 3px,
+    rgba(0, 0, 0, 0.03) 6px
+  );
+  pointer-events: none;
 }
 
 .wood-border {
-    border: 4px solid var(--wood-border);
-    box-shadow: 
-        inset 0 2px 4px rgba(0, 0, 0, 0.3),
-        inset 0 -2px 4px rgba(255, 255, 255, 0.1),
-        0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 4px solid var(--wood-border);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .wood-inset {
-    background: linear-gradient(180deg, 
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.1) 50%,
-        rgba(255, 255, 255, 0.05) 100%
-    );
-    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* Gaming Effect Utilities */
 .game-shake {
-    animation: shake 0.3s ease-in-out;
+  animation: shake 0.3s ease-in-out;
 }
 
 .game-bounce {
-    animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .game-glow {
-    animation: pulse-glow 1.5s ease-in-out infinite;
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* Main Screen Background */
+.main-screen-bg {
+  background-image: url("/assets/png/main_screen_background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
