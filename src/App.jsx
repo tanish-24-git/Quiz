@@ -9,8 +9,6 @@ const WelcomeScreen = lazy(() => import('./components/WelcomeScreen'));
 const GoalSelectionScreen = lazy(() => import('./components/GoalSelectionScreen'));
 const GoalAssessmentScreen = lazy(() => import('./components/GoalAssessmentScreen'));
 const ScoreResultsScreen = lazy(() => import('./components/ScoreResultsScreen'));
-const BookingScreen = lazy(() => import('./components/BookingScreen'));
-const LeadCaptureForm = lazy(() => import('./components/LeadCaptureForm'));
 const ThankYouScreen = lazy(() => import('./components/ThankYouScreen'));
 const RetroCountdown = lazy(() => import('./components/RetroCountdown'));
 
@@ -70,24 +68,7 @@ function App() {
                         onCallNow={handleCallNow}
                         onBookSlot={handleBookSlot}
                         onTalkToExpert={handleTalkToExpert}
-                    />
-                );
-            case SCREENS.BOOKING:
-                return (
-                    <BookingScreen
-                        key="booking"
-                        onSubmit={handleBookingSubmit}
-                        onBack={handleBackFromBooking}
-                        selectedGoals={selectedGoals}
-                        score={score}
-                    />
-                );
-            case SCREENS.LEAD_FORM:
-                return (
-                    <LeadCaptureForm
-                        key="lead-form"
-                        onSubmit={handleLeadFormSubmit}
-                        onSkip={handleSkipLeadForm}
+                        onRestart={handleRestart}
                     />
                 );
             case SCREENS.THANK_YOU:
@@ -104,21 +85,14 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300">
+        <div className="h-[100dvh] w-full flex flex-col font-sans transition-colors duration-300 bg-white overflow-hidden">
             {/* Main Content */}
-            <main className="flex-1 flex items-center justify-center p-4 sm:p-8">
-                <div
-                    className="w-full min-h-[500px]"
-                    style={{
-                        maxWidth: 'min(900px, 100%)',
-                    }}
-                >
-                    <AnimatePresence mode="wait">
-                        <Suspense fallback={<div className="flex items-center justify-center h-full"></div>}>
-                            {renderScreen()}
-                        </Suspense>
-                    </AnimatePresence>
-                </div>
+            <main className="flex-1 flex flex-col items-center justify-center p-0 overflow-hidden relative">
+                <AnimatePresence mode="wait">
+                    <Suspense fallback={null}>
+                        {renderScreen()}
+                    </Suspense>
+                </AnimatePresence>
             </main>
 
             {/* Success Toast Notification */}

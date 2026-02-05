@@ -1,116 +1,123 @@
-import { motion } from 'framer-motion';
-import { useEffect } from 'react';
-import { Card, CardContent } from "./ui/card";
-import { Phone, Calendar, MessageCircle, Sparkles } from "lucide-react";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Input } from "./ui/input";
+import { PhoneCall, CheckCircle, RotateCcw } from "lucide-react";
 import Confetti from './Confetti';
-import RetroReward from './RetroReward';
-import PixelButton from './PixelButton';
-import { useSound } from '../hooks/useSound';
+import { isValidPhone } from '../utils/helpers';
+import confetti from 'canvas-confetti';
+import Speedometer from './Speedometer';
 
-const ScoreResultsScreen = ({
-    score,
-    selectedGoals,
-    onCallNow,
-    onBookSlot,
-    onTalkToExpert
-}) => {
-    const percentage = Math.round((score / 100) * 100);
-    const { playSound } = useSound();
+import { submitToLMS } from '../utils/api';
 
-    useEffect(() => {
-        // Play victory sound on mount
-        const timer = setTimeout(() => {
-            playSound(percentage >= 50 ? 'complete' : 'success');
-        }, 500);
-        return () => clearTimeout(timer);
-    }, []);
+const ScoreResultsScreen = ({ score, selectedGoals, onBookSlot, onRestart }) => {
+    const [formData, setFormData] = useState({ name: '', mobile: '' });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errors, setErrors] = useState({});
 
-    // Determine detailed message based on score
-    const getScoreMessage = () => {
-        if (percentage >= 80) return "Master Strategist! Your future is secure!";
-        if (percentage >= 50) return "Strong Start! Keep building your goals!";
-        return "New Adventurer! Begin your quest today!";
+    const updateField = (field, val) => {
+        setFormData(p => ({ ...p, [field]: val }));
+        if (errors[field]) setErrors(p => ({ ...p, [field]: null }));
     };
 
+    const validate = () => {
+        const errs = {};
+        if (!formData.name.trim()) errs.name = "Required";
+        if (!isValidPhone(formData.mobile)) errs.mobile = "Invalid Mobile";
+        setErrors(errs);
+        return Object.keys(errs).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validate()) return;
+        setIsSubmitting(true);
+        
+        try {
+            await submitToLMS({
+                name: formData.name,
+                mobile_no: formData.mobile
+            });
+            // Transition to Thank You screen
+            onBookSlot(formData);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+
+
     return (
-        <motion.div
-            className="w-full max-w-lg mx-auto font-pixel px-4"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
+        <div 
+            className="w-full h-full sm:h-auto sm:max-w-md sm:min-h-[600px] sm:shadow-2xl relative font-sans text-white bg-sky-600 overflow-hidden sm:pixel-borders sm:border-4 sm:border-sky-800"
         >
             <Confetti />
 
-            {/* Pixel Card Container - Golden Ratio Width/Padding */}
-            <div className="relative pixel-borders bg-slate-900 border-4 border-slate-700 overflow-hidden shadow-2xl">
+            {/* Content */}
+            <div className="px-6 pt-2 pb-1 text-center relative z-10">
+                
+                {/* Speedometer Gauge */}
+                <div className="relative mx-auto flex items-center justify-center mb-0 mt-1 scale-90 sm:scale-100">
+                     <Speedometer score={Math.round(score)} />
+                </div>
+                <div className="text-xl font-bold mb-2 -mt-3 text-white">{Math.round(score)}%</div>
 
-                {/* Header / Victory Scene */}
-                <div className="relative bg-sky-600 p-0 pb-phi-2 overflow-visible">
-                    {/* Retro Reward with Spinning Background */}
-                    <RetroReward scorePercentage={percentage} />
+                <h1 className="text-xl font-bold mb-1 text-white">Congratulations!</h1>
+                <p className="text-blue-50 text-[10px] sm:text-xs font-medium mb-4">You've just aced the quiz!</p>
+
+                <div className="w-full h-px bg-white/20 my-4"></div>
+
+                <p className="text-[10px] sm:text-xs mb-4 leading-relaxed text-white max-w-xs mx-auto">
+                    To learn more about our Products, please connect with our Relationship Manager
+                </p>
+
+                {/* Call Action */}
+                <a href="tel:1800209999" className="block w-full mb-4">
+                    <button className="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-2.5 rounded-md shadow-[0_2px_0_#cc5500] active:shadow-none active:translate-y-[1px] transition-all flex items-center justify-center gap-2 text-sm">
+                        <PhoneCall className="w-4 h-4" /> CALL NOW
+                    </button>
+                </a>
+
+                <div className="relative py-1 mb-4">
+                    <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/20"></div></div>
+                    <div className="relative flex justify-center text-xs uppercase"><span className="px-3 bg-sky-600 text-blue-100 font-medium tracking-widest">Or</span></div>
                 </div>
 
-                {/* Content Area - Professional/White Theme */}
-                <CardContent className="p-phi-1 relative z-10 -mt-8 bg-white border-t-4 border-slate-900 mx-4 mb-4 shadow-lg flex flex-col gap-phi-1">
+                <div className="font-bold text-base mb-2 text-white">Book a convenient slot</div>
 
-                    {/* Message Box */}
-                    <div className="bg-blue-50 border-2 border-blue-100 p-3 rounded-none text-center shadow-sm pixel-borders-sm">
-                        <p className="text-sm sm:text-base text-gray-800 leading-relaxed font-bold uppercase tracking-wide">
-                            {getScoreMessage()}
-                        </p>
+                {/* Booking Form */}
+                <form onSubmit={handleSubmit} className="space-y-2 text-left">
+                    <div className="space-y-0.5">
+                        <label className="text-[10px] font-bold text-blue-100 uppercase tracking-wider ml-1">Your Name</label>
+                        <Input 
+                            value={formData.name} onChange={e => updateField('name', e.target.value)}
+                            className="bg-white h-9 border-transparent text-slate-900 placeholder:text-slate-400 focus-visible:ring-white/50 rounded-md text-sm"
+                            placeholder="Full Name"
+                        />
+                         {errors.name && <span className="text-[10px] text-orange-200 ml-1 font-bold">{errors.name}</span>}
+                    </div>
+                    <div className="space-y-0.5">
+                        <label className="text-[10px] font-bold text-blue-100 uppercase tracking-wider ml-1">Mobile Number</label>
+                        <Input 
+                            value={formData.mobile} onChange={e => updateField('mobile', e.target.value)}
+                            className="bg-white h-9 border-transparent text-slate-900 placeholder:text-slate-400 focus-visible:ring-white/50 rounded-md text-sm"
+                            placeholder="+91 9876543210"
+                        />
+                        {errors.mobile && <span className="text-[10px] text-orange-200 ml-1 font-bold">{errors.mobile}</span>}
                     </div>
 
-                    {/* Quest/Goals List */}
-                    <div className="mb-2">
-                        <p className="text-[10px] text-slate-400 mb-2 text-center uppercase tracking-[0.2em] font-bold">
-                            - Quest Requirements -
-                        </p>
-                        <div className="flex flex-wrap justify-center gap-2">
-                            {selectedGoals.map((goal, i) => (
-                                <motion.div
-                                    key={goal.id}
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ delay: 2.5 + (i * 0.1) }}
-                                    className="px-2 py-1 bg-slate-100 text-slate-600 text-[10px] border border-slate-300 font-bold uppercase tracking-wider pixel-borders-sm"
-                                >
-                                    {goal.name}
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Input/CTA Section */}
-                    <div className="space-y-3">
-                        <button
-                            onClick={onTalkToExpert}
-                            className="bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 px-6 w-full shadow-[0_4px_0_#cc5500] active:shadow-none active:translate-y-[2px] transition-all flex items-center justify-center gap-2 uppercase tracking-widest text-sm border-none pixel-borders-sm"
-                        >
-                            <MessageCircle className="w-5 h-5" />
-                            <span>CLAIM REWARD</span>
-                        </button>
-
-                        <div className="grid grid-cols-2 gap-3">
-                            <button
-                                onClick={onCallNow}
-                                className="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 text-xs font-bold transition-colors border-2 border-slate-200 shadow-[0_2px_0_#cbd5e1] active:translate-y-[1px] active:shadow-none uppercase tracking-wide pixel-borders-sm"
-                            >
-                                <Phone className="w-4 h-4" /> CALL
-                            </button>
-
-                            <button
-                                onClick={onBookSlot}
-                                className="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 text-xs font-bold transition-colors border-2 border-slate-200 shadow-[0_2px_0_#cbd5e1] active:translate-y-[1px] active:shadow-none uppercase tracking-wide pixel-borders-sm"
-                            >
-                                <Calendar className="w-4 h-4" /> BOOK
-                            </button>
-                        </div>
-                    </div>
-                </CardContent>
+                    <button 
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full bg-white hover:bg-blue-50 text-[#0066B2] font-bold py-2.5 rounded-md shadow-lg mt-2 transition-colors uppercase tracking-wider text-xs"
+                    >
+                        {isSubmitting ? 'Confirming...' : 'Book a Slot'}
+                    </button>
+                </form>
             </div>
-        </motion.div>
+        </div>
     );
 };
 
 export default ScoreResultsScreen;
-

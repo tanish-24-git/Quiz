@@ -189,7 +189,13 @@ export const useGameState = () => {
 
 
     const handleCallNow = () => window.location.href = 'tel:+911800209999';
-    const handleBookSlot = () => setCurrentScreen(SCREENS.BOOKING);
+    const handleBookSlot = (bookingData) => {
+        if (bookingData && bookingData.name) {
+            setLeadName(bookingData.name);
+        }
+        playSound('success');
+        setCurrentScreen(SCREENS.THANK_YOU);
+    };
     const handleTalkToExpert = () => setCurrentScreen(SCREENS.LEAD_FORM);
 
     const handleLeadFormSubmit = (lmsPayload) => {

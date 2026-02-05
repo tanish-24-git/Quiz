@@ -84,20 +84,15 @@ const GoalAssessmentScreen = ({
     return (
         <motion.div
             key={`${currentGoal.id}-${currentQuestionIndex}`}
-            className="w-full mx-auto px-2 sm:px-4 font-pixel h-[100dvh] flex flex-col items-center justify-center overflow-hidden"
+            className="w-full h-full flex flex-col items-center justify-center font-pixel"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.4 }}
         >
-            {/* Main Pixel Container - Light Blue Theme with Golden Ratio proportions */}
-            <div className="relative pixel-borders bg-sky-600 border-4 border-sky-800 overflow-hidden w-full max-w-[700px] aspect-golden-portrait sm:aspect-auto sm:min-h-[600px] flex flex-col shadow-2xl transition-all duration-300">
+            {/* Main Pixel Container - Full Screen Mobile, Centered Card Desktop */}
+            <div className="relative sm:pixel-borders bg-sky-600 sm:border-4 sm:border-sky-800 w-full h-full sm:h-auto sm:max-w-[700px] sm:min-h-[600px] flex flex-col sm:shadow-2xl transition-all duration-300 overflow-hidden">
 
-                {/* Retro Grid Background - Subtle White */}
-                <div className="absolute inset-0 pixel-grid-bg-light opacity-30 pointer-events-none" />
-
-                {/* Scanline Effect - Subtle */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5 bg-[length:100%_4px] pointer-events-none z-10 opacity-10" />
 
                 {/* Feedback Flash Overlay */}
                 <AnimatePresence>
@@ -112,11 +107,11 @@ const GoalAssessmentScreen = ({
                 </AnimatePresence>
 
                 {/* --- HEADER SECTION (~15%) --- */}
-                <div className="relative z-20 p-4 sm:p-6 grid grid-cols-3 items-center">
+                <div className="relative z-20 p-3 sm:p-4 grid grid-cols-3 items-center">
                     {/* Left Side - Level */}
                     <div className="text-white text-left">
                         <motion.div
-                            className="font-bold text-xs sm:text-sm text-white"
+                            className="font-bold text-[10px] sm:text-xs text-white"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.4, delay: 0.2 }}
@@ -128,7 +123,7 @@ const GoalAssessmentScreen = ({
                     {/* Center - Goal Name */}
                     <div className="flex justify-center w-full">
                         <motion.div
-                            className="text-brand-orange font-bold uppercase text-sm sm:text-xl tracking-widest text-center leading-tight"
+                            className="text-brand-orange font-bold uppercase text-[10px] sm:text-sm tracking-widest text-center leading-tight"
                             initial={{ opacity: 0, y: -20 }}
                             animate={{
                                 opacity: 1,
@@ -137,7 +132,7 @@ const GoalAssessmentScreen = ({
                             transition={{ duration: 0.4 }}
                         >
                             <span
-                                className="relative inline-block px-4 py-2 bg-white"
+                                className="relative inline-block px-3 py-1 bg-white"
                                 style={{
                                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
                                 }}
@@ -149,7 +144,7 @@ const GoalAssessmentScreen = ({
 
                     {/* Right Side - Timer Bar (no numbers) */}
                     <div className="flex flex-col items-end gap-1.5">
-                        <div className="w-20 sm:w-32 h-3 sm:h-4 bg-sky-900/30 border-2 border-sky-900/50 overflow-hidden">
+                        <div className="w-16 sm:w-24 h-2.5 sm:h-3.5 bg-sky-900/30 border-2 border-sky-900/50 overflow-hidden">
                             <motion.div
                                 className={`h-full ${timeLeft <= 5 ? 'bg-red-500' : 'bg-brand-orange'}`}
                                 initial={{ width: "100%" }}
@@ -161,16 +156,16 @@ const GoalAssessmentScreen = ({
                 </div>
 
                 {/* Progress Bar */}
-                <div className="relative z-20 px-4 sm:px-6 mb-2 sm:mb-4">
+                <div className="relative z-20 px-3 sm:px-4 mb-1">
                     <PixelProgressBar progress={overallProgress} />
                 </div>
 
                 {/* --- CORE CONTENT AREA (~60%) --- */}
-                <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-4 sm:p-6 text-center">
-                    <div className="space-y-4 sm:space-y-6 max-w-[90%]">
+                <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-3 sm:p-4 text-center">
+                    <div className="space-y-3 sm:space-y-4 max-w-[90%]">
                         {/* Question Text - Scaled for screens */}
                         <motion.h2
-                            className="text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white leading-relaxed drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)] uppercase tracking-tight"
+                            className="text-base sm:text-xl md:text-2xl text-white leading-relaxed drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)] uppercase tracking-tight"
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.2 }}
@@ -179,7 +174,7 @@ const GoalAssessmentScreen = ({
                         </motion.h2>
 
                         <motion.p
-                            className="text-sky-100 text-[8px] sm:text-[10px] tracking-widest uppercase font-bold opacity-80"
+                            className="text-sky-100 text-[6px] sm:text-[8px] tracking-widest uppercase font-bold opacity-80"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
@@ -190,18 +185,18 @@ const GoalAssessmentScreen = ({
                 </div>
 
                 {/* --- ACTIONS SECTION (~25%) --- */}
-                <div className="relative z-20 p-4 sm:p-8 flex flex-col items-center gap-6 sm:gap-8">
+                <div className="relative z-20 p-3 sm:p-6 flex flex-col items-center gap-4 sm:gap-6">
                     {/* Pixel Buttons - Responsive Gap */}
-                    <div className="flex justify-center gap-4 sm:gap-8 w-full max-w-sm">
+                    <div className="flex justify-center gap-4 sm:gap-6 w-full max-w-sm">
                         <PixelButton
                             onClick={(e) => handleAnswer(true, e)}
-                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4 transition-all duration-200"
+                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-sm sm:text-base py-2.5 sm:py-3.5 transition-all duration-200"
                         >
                             YES
                         </PixelButton>
                         <PixelButton
                             onClick={(e) => handleAnswer(false, e)}
-                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-sm sm:text-lg py-3 sm:py-4 transition-all duration-200"
+                            className="bg-white !text-brand-orange hover:bg-brand-orange hover:!text-white shadow-[0_4px_0_#cbd5e1] hover:shadow-[0_4px_0_#bd5a00] text-sm sm:text-base py-2.5 sm:py-3.5 transition-all duration-200"
                         >
                             NO
                         </PixelButton>
